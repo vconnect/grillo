@@ -1,0 +1,45 @@
+$btn-font-size: rem-calc(12);
+$btn-padding-width: rem-calc(20);
+$btn-padding-height: rem-calc(9);
+$btn-border-radius: rem-calc(3);
+
+@mixin btn() {
+	border-radius: $btn-border-radius;
+	color: $white-color;
+	background-color: $primary-color;
+	font-size: $btn-font-size;
+	padding: $btn-padding-height $btn-padding-width;
+	line-height: 1;
+	display: inline-block;
+	transition: all 0.3s ease;
+	&:hover, &:focus{
+		color: $white-color;
+		background-color: darken($primary-color, 2%);
+	}
+	&.invert{
+	color: $primary-color;
+	background-color: $white-color;
+		&:hover, &:focus{
+			color: $primary-color;
+			background-color: darken($white-color, 2%);
+		}
+	}
+	&.transparent{
+		background: transparent;
+		border: 1px solid;
+		padding: $btn-padding-height - rem-calc(1) $btn-padding-width - rem-calc(1);
+	}
+	&.large{
+		font-size: $btn-font-size * 1.2;
+		padding: ($btn-padding-height * 1.2) ($btn-padding-width *1.2);
+	}
+	&.x-large{
+		font-size: $btn-font-size * 1.5;
+		padding: ($btn-padding-height * 1.5) ($btn-padding-width *1.5);
+	}
+}
+
+.btn{
+	@include btn;
+}
+

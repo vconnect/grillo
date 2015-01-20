@@ -1,0 +1,104 @@
+
+// base styles
+
+$selectize-font-family: inherit;
+$selectize-font-smoothing: inherit;
+$selectize-font-size: rem-calc(13);
+$selectize-line-height: rem-calc(18);
+
+$selectize-color-text: #303030;
+$selectize-color-border: #d0d0d0;
+$selectize-color-highlight: rgba(125,168,208,0.2);
+$selectize-color-input: $white-color;
+$selectize-color-input-full: $selectize-color-input;
+$selectize-color-disabled: #fafafa;
+$selectize-color-item: #f2f2f2;
+$selectize-color-item-text: $selectize-color-text;
+$selectize-color-item-border: #d0d0d0;
+$selectize-color-item-active: #e8e8e8;
+$selectize-color-item-active-text: $selectize-color-text;
+$selectize-color-item-active-border: #cacaca;
+$selectize-color-dropdown: $white-color;
+$selectize-color-dropdown-border: $selectize-color-border;
+$selectize-color-dropdown-border-top: #f0f0f0;
+$selectize-color-dropdown-item-active: #f5fafd;
+$selectize-color-dropdown-item-active-text: #495c68;
+$selectize-color-dropdown-item-create-text: rgba(red($selectize-color-text), green($selectize-color-text), blue($selectize-color-text), 0.5);
+$selectize-color-dropdown-item-create-active-text: $selectize-color-dropdown-item-active-text;
+$selectize-color-optgroup: $selectize-color-dropdown;
+$selectize-color-optgroup-text: $selectize-color-text;
+$selectize-lighten-disabled-item: 30%;
+$selectize-lighten-disabled-item-text: 30%;
+$selectize-lighten-disabled-item-border: 30%;
+$selectize-opacity-disabled: 0.5;
+
+$selectize-shadow-input: inset 0 1px 1px rgba(0,0,0,0.1);
+$selectize-shadow-input-focus: inset 0 1px 2px rgba(0,0,0,0.15);
+$selectize-border: 1px solid $selectize-color-border;
+$selectize-border-radius: rem-calc(2);
+
+$selectize-width-item-border: 0;
+$selectize-max-height-dropdown: 200px;
+
+$selectize-padding-x: rem-calc(8);
+$selectize-padding-y: rem-calc(8);
+$selectize-padding-item-x: rem-calc(6);
+$selectize-padding-item-y: rem-calc(2);
+$selectize-padding-dropdown-item-x: $selectize-padding-x;
+$selectize-padding-dropdown-item-y: 5px;
+$selectize-margin-item-x: rem-calc(3);
+$selectize-margin-item-y: rem-calc(3);
+
+$selectize-arrow-size: 5px;
+$selectize-arrow-color: #808080;
+$selectize-arrow-offset: 15px;
+
+$selectize-caret-margin: 0 2px 0 0;
+$selectize-caret-margin-rtl: 0 4px 0 -2px;
+
+// Styles variables for VConnect theme
+$selectize-color-item: $dark-gray-color;
+$selectize-color-item-text: $white-color;
+$selectize-color-item-active-text: $white-color;
+$selectize-color-item-active-border: darken($dark-gray-color, 20%);
+$selectize-color-border: $input-border-color;
+$selectize-color-dropdown-item-active: scale-color($dark-gray-color, $lightness: 95%);  //lighten($dark-gray-color, 35%);
+$selectize-color-dropdown-item-active-text: darken($dark-gray-color, 20%);
+$selectize-color-input: $select-bg-color;
+$selectize-color-input-full: $white-color;
+$selectize-color-highlight: rgba($dark-gray-color,0.2);
+
+// $ie-gradient-value: unquote("progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=##{ie-hex-str($color-top)},endColorstr=##{ie-hex-str($color-bottom)})");
+
+@mixin selectize-border-radius ($radii) {
+	-webkit-border-radius: $radii;
+	-moz-border-radius: $radii;
+	border-radius: $radii;
+}
+@mixin selectize-unselectable () {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+@mixin selectize-box-shadow ($shadow) {
+	-webkit-box-shadow: $shadow;
+	box-shadow: $shadow;
+}
+@mixin selectize-box-sizing ($type: border-box) {
+	-webkit-box-sizing: $type;
+	-moz-box-sizing: $type;
+	box-sizing: $type;
+}
+@mixin selectize-vertical-gradient ($color-top, $color-bottom) {
+    background-color: mix($color-top, $color-bottom, 60%);
+    background-image: -moz-linear-gradient(top, $color-top, $color-bottom); // FF 3.6+
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from($color-top), to($color-bottom)); // Safari 4+, Chrome 2+
+    background-image: -webkit-linear-gradient(top, $color-top, $color-bottom); // Safari 5.1+, Chrome 10+
+    background-image: -o-linear-gradient(top, $color-top, $color-bottom); // Opera 11.10
+    background-image: linear-gradient(to bottom, $color-top, $color-bottom); // Standard, IE10
+    background-repeat: repeat-x;
+    filter: unquote("progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=##{ie-hex-str($color-top)},endColorstr=##{ie-hex-str($color-bottom)})");
+    // filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='argb($color-top)', endColorstr='argb($color-bottom)', GradientType=0)
+    // filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb($color-top),argb($color-bottom))); // IE9 and down
+}
