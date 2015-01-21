@@ -1,4 +1,5 @@
 # Grillo Framework - A front-end framework for developing web applications.
+[![Build Status](https://api.travis-ci.org/vconnect/grillo.svg)](https://travis-ci.org/vconnect/grillo)
 
 ![alt text](img/grillo-logo.png "Logo")
 

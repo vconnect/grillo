@@ -35,4 +35,17 @@ Usage:
 
 grillo.init(); => object
 
+grillo.init({
+	productlist:{
+		majorClass: 'major'
+	}
+});
+
+grillo API:
+	grillo.addUtility('utility');
+	grillo.addComponent('component');
+	grillo.require('js/jquery.js');
+	grillo.publish('event', data);
+	grillo.subscribe('event', callback(data));
+	grillo.notifyMe('notification');
 */
