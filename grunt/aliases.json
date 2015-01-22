@@ -5,7 +5,7 @@
     "newer:jshint",
     "newer:uglify",
     "newer:sass",
-    "connect"
+    "connect",
     "watch"
   ]
 }
