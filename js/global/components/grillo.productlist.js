@@ -1,9 +1,10 @@
 (function(){
-	grillo.addComponent('productlist', function(scope){
+	grillo.component('productlist', function(scope){
 		// var _privateThings = true;
 		return {
 			init:function(){
 				var cf = scope.config.productlist;
+				cf.$productsList = $('.products-list');
 				// console.log('Productlist component initialized.');
 				var validProductsList = cf.$productsList.filter(function(index, elem){
 					return $(elem).children('li').length > cf.majorLength;
