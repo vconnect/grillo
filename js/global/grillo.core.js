@@ -2,9 +2,9 @@
 (function(window, document){
 	// The Grillo Framework...
 
-	var comps = {};
-	var utils = {};
-	var config = {};
+	var _comps = {};
+	var _utils = {};
+	var _config = {};
 
 	// Pub/Sub variables
 	var channels = {};
@@ -34,31 +34,31 @@
 
 
 	var patch = function(comp, scope){
-		//Get default config options from components
-		// scope.config[comp] = {};
+		//Get default _config options from components
+		// scope._config[comp] = {};
 	};
 	var init_comp = function(comp, scope){
-		if(comps.hasOwnProperty(comp)){
-			// patch(comps[comp], scope);
-			return comps[comp](scope).init.apply(comps[comp], []);
+		if(_comps.hasOwnProperty(comp)){
+			// patch(_comps[comp], scope);
+			return _comps[comp](scope).init.apply(_comps[comp], []);
 		}
 	};
 
 	window.grillo = {
-		init: function(config){
+		init: function(_config){
 			// Initialize all components
-			for(comp in comps){
+			for(comp in _comps){
 				init_comp(comp, this);
 			}
 		},
-		comps: comps,
-		utils: utils,
-		config: config,
-		component: function(compName, compDeps, compFn){
+		comps: _comps,
+		utils: _utils,
+		config: _config,
+		addComponent: function(compName, compDeps, compFn){
 			// Getter/Setter
-			// grillo.component('component');
-			// grillo.component('component', fn);
-			// grillo.component('component', ['dependency1', 'dependency2'], fn);
+			// grillo.addComponent('component');
+			// grillo.addComponent('component', fn);
+			// grillo.addComponent('component', ['dependency1', 'dependency2'], fn);
 
 			if(isFunction(compDeps)){
 				// compDeps array skipped
@@ -66,14 +66,16 @@
 				compDeps = [];
 			}
 
-			comps[compName] = compFn;
-			config[compName] = {};
+			_comps[compName] = compFn;
+			_config[compName] = {};
+
+			return this; //return the this object for chaining
 		},
-		utility: function(utilName, utilDeps, utilFn){
+		addUtility: function(utilName, utilDeps, utilFn){
 			// Getter/Setter
-			// grillo.utility('utility');
-			// grillo.utility('utility', fn);
-			// grillo.utility('utility', ['dependency1', 'dependency2'], fn);
+			// grillo.addUtility('utility');
+			// grillo.addUtility('utility', fn);
+			// grillo.addUtility('utility', ['dependency1', 'dependency2'], fn);
 
 			if(isFunction(utilDeps)){
 				// utilDeps array skipped
@@ -81,10 +83,12 @@
 				utilDeps = [];
 			}
 
-			utils[utilName] = utilFn;
-			config[utilName] = {};
+			_utils[utilName] = utilFn;
+			_config[utilName] = {};
 
-			this[utilName] = utilFn;
+			this[utilName] = utilFn(this);
+
+			return this; //return the this object for chaining
 		},
 		require: {},
 		// PubSub from David Walsh - http://davidwalsh.name/pubsub-javascript
@@ -117,7 +121,7 @@
 /*
 Usage:
 
-grillo.init(); => object
+grillo.init(); => grillo object
 
 grillo.init({
 	productlist:{
@@ -126,12 +130,13 @@ grillo.init({
 });
 
 grillo API:
-	grillo.addUtility('utility');
-	grillo.addComponent('component');
+	grillo.addUtility('utility'); => return grillo object
+	grillo.addComponent('component'); => return grillo object
 	grillo.require('js/jquery.js');
 	grillo.publish('event', data);
 	grillo.subscribe('event', callback(data));
 	grillo.notifyMe('notification');
 
+	grillo.getAttr('role') => 'data-vc-role'
 
 */
