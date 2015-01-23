@@ -2,6 +2,10 @@
   "default": [],
 
   "grillo": [
-    "uglify"
+    "newer:jshint",
+    "newer:uglify",
+    "newer:sass",
+    "connect",
+    "watch"
   ]
 }

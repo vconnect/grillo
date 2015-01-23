@@ -1,9 +1,10 @@
-grillo: {
+module.exports = {
 	options: {
     mangle: false
   },
 
-  files: {
+	files: {
     'js/min/grillo.min.js': ['js/**/*.js']
   }
 }
+
