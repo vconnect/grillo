@@ -12,5 +12,13 @@ modules.exports = {
           baseDir: "./"
       },
       watchTask: true
+  },
+
+  unitTest: {
+  	src : [
+  		'test/keyLogger/index.html',
+  		'test/keyLogger/test.js',
+  		'test/keyLogger/js/keyLogger.js'
+  	]
   }
 }
