@@ -1,0 +1,175 @@
+# inherit_from: 'default.yml'
+
+# exclude: 'app/assets/stylesheets/plugins/**'
+
+# Default application configuration that all configurations inherit from.
+
+# scss_files: "assets/sass/global.scss"
+
+linters:
+  BangFormat:
+    enabled: false
+    space_before_bang: false
+    space_after_bang: false
+
+  BorderZero:
+    enabled: false
+
+  ColorKeyword:
+    enabled: false
+
+  Comment:
+    enabled: false
+
+  DebugStatement:
+    enabled: false
+
+  DeclarationOrder:
+    enabled: false
+
+  DuplicateProperty:
+    enabled: false
+
+  ElsePlacement:
+    enabled: false
+    style: same_line # or 'new_line'
+
+  EmptyLineBetweenBlocks:
+    enabled: false
+    ignore_single_line_blocks: false
+
+  EmptyRule:
+    enabled: false
+
+  FinalNewline:
+    enabled: false
+    present: false
+
+  HexLength:
+    enabled: false
+    style: short # or 'long'
+
+  HexNotation:
+    enabled: false
+    style: lowercase # or 'uppercase'
+
+  HexValidation:
+    enabled: false
+
+  IdSelector:
+    enabled: false
+
+  ImportPath:
+    enabled: false
+    leading_underscore: false
+    filename_extension: false
+
+  Indentation:
+    enabled: false
+    character: space # or 'tab'
+    width: 2
+
+  LeadingZero:
+    enabled: false
+    style: exclude_zero # or 'include_zero'
+
+  MergeableSelector:
+    enabled: false
+    force_nesting: false
+
+  NameFormat:
+    enabled: false
+    allow_leading_underscore: false
+    convention: hyphenated_lowercase # or 'BEM', or a regex pattern
+
+  NestingDepth:
+    enabled: false
+    max_depth: 3
+
+  PlaceholderInExtend:
+    enabled: false
+
+  PropertySortOrder:
+    enabled: false
+    ignore_unspecified: false
+
+  PropertySpelling:
+    enabled: false
+    extra_properties: []
+
+  QualifyingElement:
+    enabled: false
+    allow_element_with_attribute: false
+    allow_element_with_class: false
+    allow_element_with_id: false
+
+  SelectorDepth:
+    enabled: false
+    max_depth: 3
+
+  SelectorFormat:
+    enabled: false
+    convention: hyphenated_lowercase # or 'BEM', or 'hyphenated_BEM', or 'snake_case', or 'camel_case', or a regex pattern
+
+  Shorthand:
+    enabled: false
+
+  SingleLinePerProperty:
+    enabled: false
+    allow_single_line_rule_sets: false
+
+  SingleLinePerSelector:
+    enabled: false
+
+  SpaceAfterComma:
+    enabled: false
+
+  SpaceAfterPropertyColon:
+    enabled: false
+    style: one_space # or 'no_space', or 'at_least_one_space', or 'aligned'
+
+  SpaceAfterPropertyName:
+    enabled: false
+
+  SpaceBeforeBrace:
+    enabled: false
+    style: space
+    allow_single_line_padding: false
+
+  SpaceBetweenParens:
+    enabled: false
+    spaces: 0
+
+  StringQuotes:
+    enabled: false
+    style: single_quotes # or double_quotes
+
+  TrailingSemicolon:
+    enabled: false
+
+  TrailingZero:
+    enabled: false
+
+  UnnecessaryMantissa:
+    enabled: false
+
+  UnnecessaryParentReference:
+    enabled: false
+
+  UrlFormat:
+    enabled: false
+
+  UrlQuotes:
+    enabled: false
+
+  VendorPrefixes:
+    enabled: false
+    identifier_list: base
+    include: []
+    exclude: []
+
+  ZeroUnit:
+    enabled: false
+
+  Compass::*:
+    enabled: false
