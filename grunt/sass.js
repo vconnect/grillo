@@ -4,8 +4,8 @@ modules.exports = {
 	},
 
 	grillo:{
-		files:{
-			'main.css': 'main.scss'
+		files:{// remember sass does the concat
+			'css/main.css': 'scss/main.scss'
 		}
 	}
 }
