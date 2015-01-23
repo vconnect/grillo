@@ -1,4 +1,4 @@
-modules.exports = {
+module.exports = {
 	server: {
     options: {
 			port: 5555,

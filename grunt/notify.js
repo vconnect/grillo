@@ -1,14 +1,14 @@
-modules.export = {
+module.exports = {
 	options:{
 		title: 'Grillo Framework',
 		message: 'Grillo tasks completed successfully!'
 	}
 
-	// desktop: {
-	// 	options: {
-	// 		message: 'Desktop tasks completed successfully!'
-	// 	}
-	// },
+	,desktop: {
+		options: {
+			message: 'Desktop tasks completed successfully!'
+		}
+	}
 	// catalog: {
 	// 	options: {
 	// 		message: 'catalog tasks completed successfully'

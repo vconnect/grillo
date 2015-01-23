@@ -1,4 +1,4 @@
-modules.exports = {
+module.exports = {
   // desktop: {
   //     src : [
   //     	'css/styles.css',
@@ -19,13 +19,6 @@ modules.exports = {
   },
 
   options: {
-<<<<<<< HEAD
-    server: {
-      baseDir: "./"
-    },
-    port: 5555,
-    minify: false
-=======
       server: {
           baseDir: "./"
       },
@@ -38,7 +31,6 @@ modules.exports = {
   		'test/keyLogger/test.js',
   		'test/keyLogger/js/keyLogger.js'
   	]
->>>>>>> 6066ca847a5fe216523c6451a2685bd99a60e975
   }
 
 }
