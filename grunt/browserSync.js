@@ -27,9 +27,9 @@ module.exports = {
 
   unitTest: {
   	src : [
-  		'test/keyLogger/index.html',
-  		'test/keyLogger/test.js',
-  		'test/keyLogger/js/keyLogger.js'
+  		'tests/keyLogger/index.html',
+  		'tests/keyLogger/test.js',
+  		'tests/keyLogger/js/keyLogger.js'
   	]
   }
 
