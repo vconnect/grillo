@@ -21,7 +21,6 @@
 
   "test": [
     "browserSync:unitTest",
-	  "qunit:unitTest",
-    "watch:unitTest"
+	  "qunit:unitTest"
   ]
 }
