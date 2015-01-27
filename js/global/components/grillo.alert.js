@@ -28,7 +28,7 @@ grillo.addComponent('comp_name', function(scope){
 		};
 	};
 }); => returns the grillo object
-
+grillo.publish('vc:alert', 'Hi there!');
 grillo.comps.comp_name = (function(scope){
 	var _privateThings = true;
 	return {

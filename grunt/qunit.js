@@ -7,6 +7,6 @@ module.exports = {
   //       ]
   //     }
   //   }
-  unitTest: ['tests/**/index.html'],
-  docs: ['tests/docs/**/index.html']
+  unitTest: ['tests/**/test-*.html'],
+  docs: ['tests/docs/**/test-*.html']
 }

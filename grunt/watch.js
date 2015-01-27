@@ -14,7 +14,7 @@ module.exports = {
 
 	js: {
 		files: ['js/**/*.js'],
-		tasks: ['newer:uglify', 'newer:bytesize']
+		tasks: ['newer:jshint:all' ,'newer:uglify', 'newer:bytesize']
 	},
 
 	unitTest: {
