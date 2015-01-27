@@ -4,7 +4,7 @@ module.exports = {
 	},
 	all: {
 		files: {
-			'js/min/grillo.min.js': ['js/**/*.js']
+			'js/min/grillo.min.js': ['js/global/*.js']
 		}
 	}
 

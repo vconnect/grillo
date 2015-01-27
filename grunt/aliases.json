@@ -17,7 +17,6 @@
     "newer:jshint",
     "newer:uglify",
     "newer:sass",
-    "connect",
     "watch"
   ],
 
