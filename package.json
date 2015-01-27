@@ -23,8 +23,11 @@
     "assemble": "^0.4.42",
     "grunt": "^0.4.5",
     "grunt-browser-sync": "^1.9.1",
+    "grunt-bytesize": "^0.1.1",
+    "grunt-concat-in-order": "^0.1.6",
     "grunt-contrib-concat": "^0.5.0",
     "grunt-contrib-connect": "^0.9.0",
+    "grunt-contrib-cssmin": "^0.11.0",
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-qunit": "^0.5.2",
     "grunt-contrib-uglify": "^0.7.0",
@@ -33,8 +36,6 @@
     "grunt-notify": "^0.4.1",
     "grunt-sass": "^0.17.0",
     "grunt-scss-lint": "^0.3.4",
-    "karma": "^0.12.31",
-    "load-grunt-config": "^0.16.0",
-    "qunit": "^0.7.5"
+    "load-grunt-config": "^0.16.0"
   }
 }

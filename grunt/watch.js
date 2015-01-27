@@ -9,12 +9,12 @@ module.exports = {
 
   css: {
     files: ['scss/**/*.scss'],
-    tasks: ['newer:sass'],
+    tasks: ['newer:sass', 'newer:cssmin', 'newer:bytesize'],
   },
 
 	js: {
 		files: ['js/**/*.js'],
-		tasks: ['newer:uglify']
+		tasks: ['newer:uglify', 'newer:bytesize']
 	},
 
 	unitTest: {

@@ -5,7 +5,7 @@
 			init: function(){
 				// initialize component
 				console.log('Alert component initialized')
-			};
+			}
 		};
 	});
 }());

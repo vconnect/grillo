@@ -1,6 +1,6 @@
-// Foundation by ZURB
-// foundation.zurb.com
-// Licensed under MIT Open Source
+// Grillo by VConnect
+// vconnect.github.io/grillo
+// Licensed under Apache 2.0 Open Source
 
 @import "global";
 
@@ -164,7 +164,6 @@ $last-child-float: $opposite-direction !default;
     }
   }
 
-  .column,
   .columns { @include grid-column($columns:false, $position:true); }
 
 
@@ -184,10 +183,10 @@ $last-child-float: $opposite-direction !default;
     float: $default-float;
   }
 
-  .column.#{$size}-centered,
+
   .columns.#{$size}-centered { @include grid-column($center:true, $collapse:null, $float:false); }
 
-  .column.#{$size}-uncentered,
+
   .columns.#{$size}-uncentered {
     margin-#{$default-float}: 0;
     margin-#{$opposite-direction}: 0;
@@ -195,31 +194,30 @@ $last-child-float: $opposite-direction !default;
   }
 
   // Fighting [class*="column"] + [class*="column"]:last-child
-  .column.#{$size}-centered:last-child,
+
   .columns.#{$size}-centered:last-child{
     float: none;
   }
 
-  // Fighting .column.<previous-size>-centered:last-child
-  .column.#{$size}-uncentered:last-child,
+
+
   .columns.#{$size}-uncentered:last-child {
     float: $default-float;
   }
 
-  .column.#{$size}-uncentered.opposite,
+
   .columns.#{$size}-uncentered.opposite {
     float: $opposite-direction;
   }
 
 	.row {
 		&.#{$size}-collapse {
-			> .column,
 			> .columns { @include grid-column($collapse:true, $float:false); }
 
 			.row {margin-left:0; margin-right:0;}
 		}
 		&.#{$size}-uncollapse {
-			> .column,
+
 			> .columns {
 				@include grid-column;
 			}
@@ -233,7 +231,7 @@ $last-child-float: $opposite-direction !default;
       @include grid-row;
 
       &.collapse {
-         > .column,
+
          > .columns { @include grid-column($collapse:true, $float:false); }
 
         .row {margin-left:0; margin-right:0;}
@@ -244,7 +242,6 @@ $last-child-float: $opposite-direction !default;
       }
     }
 
-    .column,
     .columns { @include grid-column($columns:$total-columns); }
 
     [class*="column"] + [class*="column"]:last-child { float: $last-child-float; }
