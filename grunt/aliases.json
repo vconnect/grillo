@@ -6,8 +6,10 @@
   	"newer:jshint:all",
   	"newer:uglify:all",
   	"newer:sass:docs",
+  	"newer:cssmin:docs",
   	"newer:qunit:docs",
   	"browserSync:docs",
+  	"bytesize:all",
   	"watch"
   ],
 

@@ -1,6 +1,7 @@
 module.exports = {
 	options:{
-		style: 'compressed'
+		style: 'compressed',
+		sourceMap: true
 	},
 
 	grillo:{
