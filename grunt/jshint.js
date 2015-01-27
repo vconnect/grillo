@@ -3,5 +3,5 @@ module.exports = {
 		force: true
 	},
 
-	all: ['js/**/*.js', '!js/**/*.min.js']
+	all: ['js/**/*.js', '!js/min/**/*.js', '!js/vendor/**/*.js']
 }
