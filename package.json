@@ -33,8 +33,6 @@
     "grunt-notify": "^0.4.1",
     "grunt-sass": "^0.17.0",
     "grunt-scss-lint": "^0.3.4",
-    "karma": "^0.12.31",
-    "load-grunt-config": "^0.16.0",
-    "qunit": "^0.7.5"
+    "load-grunt-config": "^0.16.0"
   }
 }
