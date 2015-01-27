@@ -1,11 +1,4 @@
 module.exports = {
-  // desktop: {
-  //     src : [
-  //     	'css/styles.css',
-  //     	'js/min/app.min.js',
-  //     	'./*.html'
-  //     ]
-  // },
 
   // options: {
   //     server: {
@@ -14,6 +7,13 @@ module.exports = {
   //     watchTask: true
   // }
 
+  docs: {
+      src : [
+      	'css/docs.css',
+      	'js/docs/**/*.js',
+      	'docs/*.html'
+      ]
+  },
   bsFiles: {
     src : ["css/*.css", "./*.html", "js/min/app.min.js"]
   },
