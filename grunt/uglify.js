@@ -6,6 +6,7 @@ module.exports = {
 	files: {
 		'js/min/grillo.min.js': ['js/**/*.js']
 	},
+
 	all: {
 		files: [{
 			expand: true,
