@@ -44,6 +44,15 @@
 		}
 	};
 
+
+	GrilloException = function(message){
+		this.name = "GrilloException";
+		this.message = message || "An error has occurred.";
+	}
+	GrilloException.prototype = Object.create(Error.prototype);
+	GrilloException.prototype.constructor = GrilloException;
+
+
 	window.grillo = {
 		init: function(_config){
 			// Initialize all components
@@ -55,7 +64,6 @@
 		utils: _utils,
 		config: _config,
 		addComponent: function(compName, compDeps, compFn){
-			// Getter/Setter
 			// grillo.addComponent('component');
 			// grillo.addComponent('component', fn);
 			// grillo.addComponent('component', ['dependency1', 'dependency2'], fn);
@@ -64,8 +72,9 @@
 				// compDeps array skipped
 				compFn = compFn || compDeps;
 				compDeps = [];
-			}
-
+			};
+			// console.log(_comps[compName]);
+			if(_comps.hasOwnProperty(compName))throw new GrilloException("Already defined a component as: " + compName);
 			_comps[compName] = compFn;
 			_config[compName] = {};
 
@@ -83,6 +92,7 @@
 				utilDeps = [];
 			}
 
+			if(_utils.hasOwnProperty(utilName))throw new GrilloException("Already defined a utility as: " + utilName);
 			_utils[utilName] = utilFn;
 			_config[utilName] = {};
 

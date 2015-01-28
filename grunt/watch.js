@@ -14,12 +14,12 @@ module.exports = {
 
 	js: {
 		files: ['js/**/*.js'],
-		tasks: ['newer:jshint:all' ,'newer:uglify', 'newer:bytesize']
+		tasks: ['newer:jshint:all','newer:uglify', 'newer:bytesize']
 	},
 
 	unitTest: {
-	  files: ['test/keyLogger/*.html', 'test/keyLogger/*.js', 'test/keyLogger/js/*.js'],
-	  tasks: ['unit']
+	  files: ['tests/**/test-*.html', 'tests/**/*.js'],
+	  tasks: ['qunit']
 	}
 
 }

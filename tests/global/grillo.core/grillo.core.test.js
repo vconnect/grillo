@@ -2,7 +2,7 @@ QUnit.module('Test addComponent() behaviour');
 
 QUnit.test("addComponent() adds component", function( assert ) {
 
-	grillo.addComponent('dolphin', function(scope){
+	grillo.addComponent('dolphin1', function(scope){
 		var events = function(){
 			console.log('Dolphin component events executed.');
 			scope.subscribe('testChannel', function(data){
@@ -19,12 +19,12 @@ QUnit.test("addComponent() adds component", function( assert ) {
 			}
 		}
 	});
-	assert.ok(grillo.comps.dolphin, "undefined fails.");
+	assert.ok(grillo.comps.dolphin1, "dolphin1 component is added.");
 });
 
 QUnit.test("calls the callback initialize function", function(assert){
 	calledInit = false;
-	grillo.addComponent('dolphin', function(scope){
+	grillo.addComponent('dolphin2', function(scope){
 		var events = function(){
 			console.log('Dolphin component events executed.');
 		}
@@ -43,7 +43,7 @@ QUnit.test("calls the callback initialize function", function(assert){
 });
 
 QUnit.test("passes in the grillo scope object", function(assert){
-	grillo.addComponent('dolphin', function(scope){
+	grillo.addComponent('dolphin3', function(scope){
 		var events = function(){
 			console.log('Dolphin component events executed.');
 		}
@@ -60,7 +60,7 @@ QUnit.test("passes in the grillo scope object", function(assert){
 });
 
 QUnit.test("doesn't override existing component", function(assert){
-	grillo.addComponent('dolphin', function(scope){
+	grillo.addComponent('dolphin4', function(scope){
 		compFlag = 0;
 		var events = function(){
 			console.log('Dolphin component events executed.');
@@ -73,8 +73,8 @@ QUnit.test("doesn't override existing component", function(assert){
 			}
 		}
 	});
-	assert.throws(
-		grillo.addComponent('dolphin', function(scope){
+	var addComp = function(){
+		grillo.addComponent('dolphin4', function(scope){
 			var events = function(){
 				console.log('Dolphin component events executed.');
 			}
@@ -85,8 +85,10 @@ QUnit.test("doesn't override existing component", function(assert){
 					compFlag = 2;
 				}
 			}
-		}), "throws an exception when another component with same name is added"
-	);
+		});
+	}
+
+	assert.throws(addComp, "throws an exception when another component with same name is added.");
 
 	grillo.init();
 
@@ -95,7 +97,7 @@ QUnit.test("doesn't override existing component", function(assert){
 
 QUnit.test("returns grillo object", function(assert){
 	assert.equal(
-		grillo.addComponent('dolphin', function(scope){
+		grillo.addComponent('dolphin5', function(scope){
 			var events = function(){
 				console.log('Dolphin component events executed.');
 			}
@@ -116,7 +118,7 @@ QUnit.module("Test addUtility() behaviour");
 
 QUnit.test("addUtility() adds utility", function( assert ) {
 
-	grillo.addUtility('dolphinUtil', function(scope){
+	grillo.addUtility('dolphinUtil1', function(scope){
 		var events = function(){
 			console.log('Dolphin component events executed.');
 			scope.subscribe('testChannel', function(data){
@@ -131,12 +133,12 @@ QUnit.test("addUtility() adds utility", function( assert ) {
 			events();
 		}
 	});
-	assert.ok(grillo.utils.dolphinUtil, "Adds utility to the system.");
+	assert.ok(grillo.utils.dolphinUtil1, "Adds utility to the system.");
 });
 
 QUnit.test("fires utility function when called", function( assert ) {
-	calledBack = false;
-	grillo.addUtility('dolphinUtil', function(scope){
+	var calledBack = false;
+	grillo.addUtility('dolphinUtil2', function(scope){
 		var events = function(){
 			console.log('Dolphin component events executed.');
 			scope.subscribe('testChannel', function(data){
@@ -153,13 +155,13 @@ QUnit.test("fires utility function when called", function( assert ) {
 		}
 	});
 
-	grillo.dolphinUtil();
+	grillo.dolphinUtil2();
 	assert.ok(calledBack, "utility function executed.");
 });
 
 QUnit.test("passes in the grillo scope", function( assert ) {
 
-	grillo.addUtility('dolphinUtil', function(scope){
+	grillo.addUtility('dolphinUtil3', function(scope){
 		var events = function(){
 			console.log('Dolphin component events executed.');
 			scope.subscribe('testChannel', function(data){
@@ -176,12 +178,12 @@ QUnit.test("passes in the grillo scope", function( assert ) {
 		}
 	});
 
-	grillo.dolphinUtil();
+	grillo.dolphinUtil3();
 });
 
 QUnit.test("doesn't override existing utility", function( assert ) {
 	utilFlag = 0;
-	grillo.addUtility('dolphinUtil', function(scope){
+	grillo.addUtility('dolphinUtil4', function(scope){
 		var events = function(){
 			console.log('Dolphin component events executed.');
 			scope.subscribe('testChannel', function(data){
@@ -197,9 +199,8 @@ QUnit.test("doesn't override existing utility", function( assert ) {
 			utilFlag = 1;
 		}
 	});
-
-	assert.throws(
-		grillo.addUtility('dolphinUtil', function(scope){
+	var addUtil = function(){
+		grillo.addUtility('dolphinUtil4', function(scope){
 			var events = function(){
 				console.log('Dolphin component events executed.');
 				scope.subscribe('testChannel', function(data){
@@ -214,15 +215,16 @@ QUnit.test("doesn't override existing utility", function( assert ) {
 				events();
 				utilFlag = 2;
 			}
-		}), "throws an exception when utility is added with same name"
-	);
-
+		})
+	}
+	assert.throws(addUtil, "throws an exception when utility is added with same name");
+	grillo.dolphinUtil4();
 	assert.equal(utilFlag, 1, "Doesn't override existing function.");
 });
 
 QUnit.test("utility in grillo scope in other utilities and components", function( assert ) {
 
-	grillo.addUtility('dolphinUtil', function(scope){
+	grillo.addUtility('dolphinUtil5', function(scope){
 		var events = function(){
 			console.log('Dolphin component events executed.');
 			scope.subscribe('testChannel', function(data){
@@ -252,11 +254,11 @@ QUnit.test("utility in grillo scope in other utilities and components", function
 			// runTest('gorilla component initialized.');
 			console.dir(scope);
 			events();
-			assert.equal(scope.dolphinUtil(), "dolphinUtil utility", "utility in scope of utility");
+			assert.equal(scope.dolphinUtil5(), "dolphinUtil utility", "utility in scope of utility");
 		}
 	});
 
-	grillo.addComponent('dolphin', function(scope){
+	grillo.addComponent('kiwi', function(scope){
 		var events = function(){
 			console.log('Dolphin component events executed.');
 			scope.subscribe('testChannel', function(data){
@@ -270,7 +272,7 @@ QUnit.test("utility in grillo scope in other utilities and components", function
 				// runTest('Dolphin component initialized.');
 				console.dir(scope);
 				events();
-				assert.equal(scope.dolphinUtil(), "dolphinUtil utility", "utility in scope of component");
+				assert.equal(scope.dolphinUtil5(), "dolphinUtil utility", "utility in scope of component");
 			}
 		}
 	});
@@ -281,7 +283,7 @@ QUnit.test("utility in grillo scope in other utilities and components", function
 
 QUnit.test("returns the grillo object", function( assert ) {
 
-	var dolph = grillo.addUtility('dolphinUtil', function(scope){
+	var dolph = grillo.addUtility('dolphinUtil6', function(scope){
 		var events = function(){
 			console.log('Dolphin component events executed.');
 			scope.subscribe('testChannel', function(data){
