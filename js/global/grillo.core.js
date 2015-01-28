@@ -16,7 +16,7 @@
 	var isFunction = function(fn) {
 		var getType = {};
 		return fn && getType.toString.call(fn) === '[object Function]';
-	}
+	};
 
 	// from qunit.js
 	var extend = function( a, b ) {
@@ -30,7 +30,7 @@
 			}
 		}
 		return a;
-	}
+	};
 
 
 	var patch = function(comp, scope){
@@ -47,7 +47,7 @@
 	window.grillo = {
 		init: function(_config){
 			// Initialize all components
-			for(comp in _comps){
+			for(var comp in _comps){
 				init_comp(comp, this);
 			}
 		},
@@ -91,6 +91,9 @@
 			return this; //return the this object for chaining
 		},
 		require: {},
+		getAttr: function(attrName, attrValue){
+			//...
+		},
 		// PubSub from David Walsh - http://davidwalsh.name/pubsub-javascript
 		publish: function(channel, data){
 			// If the channel doesn't exist, just return. (It simply means there are no listeners)
@@ -99,8 +102,9 @@
 			lenListeners = channels[channel].length;
 			for(i = 0; i < lenListeners; i++){
 				// Execute each listener
-				channels[channel][i](data);
+				channels[channel][i] && channels[channel][i](data);
 			}
+			return this;
 		},
 		subscribe: function(channel, listener){
 			// If the channel doesn't exist, create the object
@@ -112,6 +116,7 @@
 			return {
 				remove:function(){
 					delete channels[channel][index];
+					// channels[channel].splice(index, 1);
 				}
 			};
 		}

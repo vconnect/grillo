@@ -1,1 +1,0 @@
-!function(){grillo.addComponent("alert",function(){return{init:function(){console.log("Alert component initialized")}}})}();
