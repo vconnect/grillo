@@ -404,35 +404,133 @@ QUnit.test("remove() function removes listener", function( assert ) {
 	assert.equal(inListener, false, "listener was not called.");
 });
 
+
+QUnit.module("Test getAttr() behaviour");
+
+QUnit.test("returns new namespaced string", function(assert){
+	// ...
+	assert.equal(grillo.getAttr("role"), "data-vc-role", "returns the namespaced string.");
+});
+
+QUnit.test("without argument, returns the namespace only", function(assert){
+	// ...
+	assert.equal(grillo.getAttr(), "data-vc", "returns the namespace.");
+});
+
+QUnit.test("with two arguments, returns data namespace with the specified value", function(assert){
+	// ...
+	assert.equal(grillo.getAttr("role", "prev"), "[data-vc-role=prev]", "returns the namespaced string.");
+});
+
+
+QUnit.module("Test require() behaviour");
+QUnit.config.testTimeout = 10000;
+
+QUnit.test("require() loads script", function(assert){
+	done = assert.async();
+	grillo.require('js/script.js');
+	grillo.subscribe('scriptCalled', function(data){
+		assert.equal(data, "I am inside script.js", "loads script.");
+		done();
+	});
+});
+
+QUnit.test("require() loads multiple scripts in order", function(assert){
+	done = assert.async();
+	done2 = assert.async();
+	done3 = assert.async();
+	done4 = assert.async();
+	grillo.require(['js/script1.js', '../../vendor/script2.js', 'js/script3', 'foo']);
+	grillo.subscribe('script1Called', function(data){
+		assert.equal(data, "I am inside script1.js", "loads script 1.");
+		done();
+	});
+	grillo.subscribe('script2Called', function(data){
+		assert.equal(data, "I am inside script2.js", "loads script 2 in ../../vendor folder.");
+		done2();
+	});
+	grillo.subscribe('script3Called', function(data){
+		assert.equal(data, "I am inside script3.js", "loads script 3 - without .js.");
+		done3();
+	});
+	grillo.subscribe('script5Called', function(data){
+		assert.equal(data, "I am inside script5.js", "loads foo script - after 3s.");
+		done4();
+	});
+});
+
+QUnit.test("calls the callback function", function(assert){
+	done = assert.async();
+	grillo.require('js/script.js', function(){
+		console.log('called back.');
+		assert.ok(true, "callback function called.");
+		done();
+	});
+});
+
+QUnit.test("evaluates test function before callback", function(assert){
+	assert.expect(3);
+	grillo.require('js/script.js', function(){
+		assert.ok(true, "test function evaluated.");
+		return true;
+	}, function(){
+		assert.ok(true, "callback invoked when test is true.");
+	});
+
+	grillo.require('js/script.js', function(){
+		assert.ok(true, "test function evaluated.");
+		return false;
+	}, function(){
+		assert.ok(false, "callback invoked when test is false.");
+	});
+});
+
+QUnit.test("calls the success callback in the passed object", function(assert){
+	grillo.require('js/script.js', {
+		success: function(){
+			assert.ok(true, "success callback called.");
+		},
+		failure: function(){
+			assert.ok(false, "failure callback called.");
+		},
+		always: function(){
+			assert.ok(true, "always callback called.");
+		}
+	});
+});
+
+QUnit.test("calls the failure callback in the passed object", function(assert){
+	assert.expect(2);
+	grillo.require('js/script.js', function(){return false;}, {
+		success: function(){
+			assert.ok(false, "success callback called.");
+		},
+		failure: function(){
+			assert.ok(true, "failure callback called.");
+		},
+		always: function(){
+			assert.ok(true, "always callback called.");
+		}
+	});
+});
+
 /*
-	addComponent:
-		-adds component
-		-calls callback initialize function
-		-passes in the grillo scope object
-		-doesn't override existing component
-		-returns grillo object
+	require:
+		loads script
 
-	addUtility:
-		-adds utility
-		-fires utility function when called
-		-passes in the grillo scope object
-		-doesn't override existing utilities
-		-utility in grillo scope in other components
-		-utility in grillo scope in other utilities
-		-returns the grillo object
+		loads multiple scripts
 
-	publish:
-		-listeners in global scope get fired
-		-listeners in components get fired
-		-passes the data object
-		-passes an empty data object when there is no data
-		-returns the grillo object
+		calls the callback function
+			for jquery.js
+					js/jquery.js
+					jquery
+					js/jquery
+					//mcdn.domain.com/script.js
+					foo
 
-	subscribe:
-		-remove() function removes listener
+		evaluates test function before callback
 
-	getAttr:
-		returns new string with data namespace
-		without options, returns the data namespace alone
-		with two arguments, returns data namespace with the specified value
+		calls the failure function
+
+		calls with the object
 */

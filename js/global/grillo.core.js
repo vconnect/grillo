@@ -2,9 +2,18 @@
 (function(window, document){
 	// The Grillo Framework...
 
-	var _comps = {};
-	var _utils = {};
-	var _config = {};
+	var _comps = {},
+			_utils = {},
+			_config = {};
+
+	var _namespace = "vc";
+
+	// Require variables
+	var _requireTimeout = 5000;
+	var _scriptPaths = {
+		foo: 'js/script5.js'
+	};
+	var _scriptStore = {};
 
 	// Pub/Sub variables
 	var channels = {};
@@ -17,6 +26,16 @@
 		var getType = {};
 		return fn && getType.toString.call(fn) === '[object Function]';
 	};
+
+	var isString = function(i){
+		return typeof i === 'string';
+	}
+
+	var isArray = function(i){
+		return i.constructor === Array;
+	}
+
+	var noop = function(){};
 
 	// from qunit.js
 	var extend = function( a, b ) {
@@ -100,9 +119,113 @@
 
 			return this; //return the this object for chaining
 		},
-		require: {},
+		require: function(scriptURLs, testFn, callback){
+			// script loading - http://www.html5rocks.com/en/tutorials/speed/script-loading/
+
+			var scripts = [];
+			var src, script, scriptExists = false;
+			var pendingScripts = [];
+			var firstScript = document.scripts[0];
+			var flgCount = 0;
+
+			var _failFn = noop;
+			var _alwaysFn = noop;
+			var _testFn = (callback && testFn) || function(){return true;} //if two callbacks exist, then that must be testFn
+			var _callback = callback || testFn || noop; //if only one callback exists, then that must be callback
+			if(!isFunction(_callback)){
+				var callbackObj = _callback;
+				_callback = callbackObj.success || noop;
+				_failFn = callbackObj.failure || noop;
+				_alwaysFn = callbackObj.always || noop;
+			}
+			console.log('testFn: ');
+			console.log(testFn);
+
+			if(isString(scriptURLs)){ // make scriptURLs an array
+				var tmp = [];
+				tmp.push(scriptURLs);
+				scriptURLs = tmp;
+			}
+
+			var noOfScripts = scriptURLs.length;
+			for(var i=0; i < noOfScripts; i++){
+				// Add the correct URLs for those in the storePaths object.
+				scripts[scriptURLs[i]] = _scriptPaths[scriptURLs[i]] || scriptURLs[i];
+			}
+
+			var checkProgress = function(){
+				if(++flgCount == noOfScripts){// Check testFn when all the scripts are loaded
+					if(_testFn())_callback(); //Fire the callback if test passes
+					else _failFn();
+					_alwaysFn();
+				}
+			}
+
+			// Watch scripts load in IE
+			var stateChange = function(){
+				var pendingScript;
+				while(pendingScripts[0] && pendingScripts[0].readyState == 'loaded'){
+					pendingScript = pendingScripts.shift();
+					// avoid future loading events from this script (eg, if src changes)
+					pendingScript.onreadystatechange = null;
+					// can't just appendChild, old IE bug if element isn't closed
+					firstScript.parentNode.insertBefore(pendingScript, firstScript);
+
+					checkProgress(); //check for when all the scripts are loaded
+				}
+			}
+
+			// loop through script URLs
+			for(var key in scripts){
+				src = scripts[key];
+				scriptExists = false;
+				console.log(src);
+				if(src.split('.').pop() !== 'js'){ //check if URL is a JS file
+					// Check for existing key with same name
+					console.log('Not a JS file.');
+					src += '.js';
+				}
+				for(scpt in _scriptStore){
+				// loop through scriptStore to check if the script has already been added
+					if(_scriptStore[scpt] == src)scriptExists = true;
+				}
+				if(!scriptExists){ //if the script doesn't yet exist
+					if('async' in firstScript){ //for modern browsers
+						script = document.createElement('script');
+						script.async = false;
+						script.src = src;
+						document.head.appendChild(script);
+					}
+					else if(firstScript.readyState){ //IE<10
+						// create a script and add it to the TODO pile
+						script = document.createElement('script');
+						pendingScripts.push(script);
+						// listen for state changes
+						script.onreadystatechange = stateChange;
+						// must set src AFTER onreadystatechange listener
+						// so we don't miss the loaded event for cached scripts
+						script.src = src;
+					}
+					else{
+						document.write('<script src="' + src + '" defer></' + 'script>');
+					}
+					_scriptStore[key] = src;
+				}
+
+				checkProgress();
+			}
+		},
 		getAttr: function(attrName, attrValue){
-			//...
+			if(attrName){
+				if(attrValue){
+					if(_namespace)return "[data-" + _namespace + "-" + attrName + "=" + attrValue + "]";
+					return "[data-" + attrName + "=" + attrValue + "]"
+				}
+				if(_namespace)return "data-" + _namespace + "-" + attrName;
+				return "data-" + attrName
+			}
+			return "data-" + _namespace;
+			// return (attrName && ((attrValue && "[data-" + _namespace + "-" + attrName + "=" + attrValue + "]") || (_namespace && "data-" + _namespace + "-" + attrName) || "data-" + attrName)) || "data-" + _namespace;
 		},
 		// PubSub from David Walsh - http://davidwalsh.name/pubsub-javascript
 		publish: function(channel, data){
@@ -129,7 +252,8 @@
 					// channels[channel].splice(index, 1);
 				}
 			};
-		}
+		},
+		scriptStore: _scriptStore
 	};
 }(this, document));
 
