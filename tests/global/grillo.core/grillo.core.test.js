@@ -486,15 +486,21 @@ QUnit.test("evaluates test function before callback", function(assert){
 });
 
 QUnit.test("calls the success callback in the passed object", function(assert){
-	grillo.require('js/script.js', {
+	assert.expect(2);
+	done = assert.async();
+	done1 = assert.async();
+	grillo.require('js/script.js', function(){return typeof ScriptG.text !== 'undefined'}, {
 		success: function(){
 			assert.ok(true, "success callback called.");
+			done();
 		},
 		failure: function(){
 			assert.ok(false, "failure callback called.");
+			done();
 		},
 		always: function(){
 			assert.ok(true, "always callback called.");
+			done1();
 		}
 	});
 });

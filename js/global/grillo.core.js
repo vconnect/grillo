@@ -127,6 +127,7 @@
 			var pendingScripts = [];
 			var firstScript = document.scripts[0];
 			var flgCount = 0;
+			var failTimeout = null;
 
 			var _failFn = noop;
 			var _alwaysFn = noop;
@@ -138,8 +139,6 @@
 				_failFn = callbackObj.failure || noop;
 				_alwaysFn = callbackObj.always || noop;
 			}
-			console.log('testFn: ');
-			console.log(testFn);
 
 			if(isString(scriptURLs)){ // make scriptURLs an array
 				var tmp = [];
@@ -155,7 +154,8 @@
 
 			var checkProgress = function(){
 				if(++flgCount == noOfScripts){// Check testFn when all the scripts are loaded
-					if(_testFn())_callback(); //Fire the callback if test passes
+					clearTimeout(failTimeout); // Prevent the failTimeout function from executing
+					if(_testFn())_callback(); // Fire the callback if test passes
 					else _failFn();
 					_alwaysFn();
 				}
@@ -175,6 +175,13 @@
 				}
 			}
 
+			// Watch scripts load in modern browsers
+			var stateChangeModern = function(){
+				// console.log('modern onload called.');
+				// console.log(arguments);
+				checkProgress();
+			}
+
 			// loop through script URLs
 			for(var key in scripts){
 				src = scripts[key];
@@ -187,12 +194,17 @@
 				}
 				for(scpt in _scriptStore){
 				// loop through scriptStore to check if the script has already been added
-					if(_scriptStore[scpt] == src)scriptExists = true;
+					if(_scriptStore[scpt] == src){
+						scriptExists = true;
+						checkProgress();
+						break;
+					}
 				}
 				if(!scriptExists){ //if the script doesn't yet exist
 					if('async' in firstScript){ //for modern browsers
 						script = document.createElement('script');
 						script.async = false;
+						script.onload = stateChangeModern;
 						script.src = src;
 						document.head.appendChild(script);
 					}
@@ -206,14 +218,19 @@
 						// so we don't miss the loaded event for cached scripts
 						script.src = src;
 					}
-					else{
+					else{ //fallback to defer
 						document.write('<script src="' + src + '" defer></' + 'script>');
 					}
 					_scriptStore[key] = src;
 				}
-
-				checkProgress();
+				// checkProgress();
 			}
+
+			failTimeout = setTimeout(function(){ // call the failure function if the scripts were not completely loaded in the specified time
+				_failFn();
+				_alwaysFn();
+				return false;
+			}, _requireTimeout);
 		},
 		getAttr: function(attrName, attrValue){
 			if(attrName){
