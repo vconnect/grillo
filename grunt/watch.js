@@ -9,7 +9,7 @@ module.exports = {
 
   css: {
     files: ['scss/**/*.scss'],
-    tasks: ['newer:sass', 'newer:cssmin', 'newer:bytesize'],
+    tasks: ['sass', 'newer:cssmin', 'newer:bytesize'],
   },
 
 	js: {
