@@ -1,0 +1,19 @@
+.grid-content{
+	.content{
+		background: rgba(0, 0, 0, 0.7);
+		min-height: rem-calc(50);
+		margin: rem-calc(15 0);
+		text-align: center;
+		font-size: rem-calc(11);
+		color: white;
+		padding: rem-calc(5);
+	}
+	.columns{
+		&:nth-child(n){
+			background: tomato;
+		}
+		&:nth-child(2n){
+			background: yellow;
+		}
+	}
+}

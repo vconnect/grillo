@@ -14,6 +14,10 @@ module.exports = {
 			partials: ['includes/docs/*.hbs']
 		},
 		src: ['templates/docs/*.hbs'],
-		dest: 'docs/'
+		dest: './docs/'
 	}
 }
+
+
+/*Take Note*/
+// You must have content within all the included files for it to compile.

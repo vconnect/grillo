@@ -147,7 +147,6 @@ $last-child-float: $opposite-direction !default;
 
   // If offset, calculate appropriate margins
   @if $offset { margin-#{$default-float}: grid-calc($offset, $total-columns) !important; }
-
 }
 
 // Create presentational classes for grid
@@ -247,6 +246,10 @@ $last-child-float: $opposite-direction !default;
     [class*="column"] + [class*="column"]:last-child { float: $last-child-float; }
     [class*="column"] + [class*="column"].end { float: $default-float; }
 
+    @media #{$xsmall-up} {
+      @include grid-html-classes($size:xsmall);
+    }
+
     @media #{$small-up} {
       @include grid-html-classes($size:small);
     }
@@ -254,25 +257,28 @@ $last-child-float: $opposite-direction !default;
     @media #{$medium-up} {
       @include grid-html-classes($size:medium);
       // Old push and pull classes
-      @for $i from 0 through $total-columns - 1 {
-        .push-#{$i} {
-          @include grid-column($push:$i, $collapse:null, $float:false);
-        }
-        .pull-#{$i} {
-          @include grid-column($pull:$i, $collapse:null, $float:false);
-        }
-      }
+
+      // Deprecated in Grillo
+      //  @for $i from 0 through $total-columns - 1 {
+      //   .push-#{$i} {
+      //     @include grid-column($push:$i, $collapse:null, $float:false);
+      //   }
+      //   .pull-#{$i} {
+      //     @include grid-column($pull:$i, $collapse:null, $float:false);
+      //   }
+      // }
     }
     @media #{$large-up} {
       @include grid-html-classes($size:large);
-      @for $i from 0 through $total-columns - 1 {
-        .push-#{$i} {
-          @include grid-column($push:$i, $collapse:null, $float:false);
-        }
-        .pull-#{$i} {
-          @include grid-column($pull:$i, $collapse:null, $float:false);
-        }
-      }
+      // Deprecated in Grillo
+      // @for $i from 0 through $total-columns - 1 {
+      //   .push-#{$i} {
+      //     @include grid-column($push:$i, $collapse:null, $float:false);
+      //   }
+      //   .pull-#{$i} {
+      //     @include grid-column($pull:$i, $collapse:null, $float:false);
+      //   }
+      // }
     }
   }
   @if $include-xl-html-grid-classes {
