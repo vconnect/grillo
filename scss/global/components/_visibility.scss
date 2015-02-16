@@ -17,18 +17,22 @@ $include-legacy-visibility-classes: true !default;
 //
 // Visibility Breakpoints
 $visibility-breakpoint-sizes:
+	xsmall,
   small,
   medium,
-  large,
-  xlarge,
-  xxlarge;
+  large;
+
+  // xlarge,
+  // xxlarge;
 
 $visibility-breakpoint-queries:
+	unquote($xsmall-up),
   unquote($small-up),
   unquote($medium-up),
-  unquote($large-up),
-  unquote($xlarge-up),
-  unquote($xxlarge-up);
+  unquote($large-up);
+
+  // unquote($xlarge-up),
+  // unquote($xxlarge-up);
 
 @mixin visibility-loop {
   @each $current-visibility-breakpoint in $visibility-breakpoint-sizes {

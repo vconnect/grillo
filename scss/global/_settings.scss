@@ -48,6 +48,15 @@
 // 34. Top Bar
 // 36. Visibility Classes
 
+// Added for no-js builds which do not
+// support lots of the HTML5/CSS3 code.
+// Remove for standard builds.
+$no-js: false !default;
+$mobile: false !default;
+
+//Check for IE8 and below
+$ie: false !default;
+
 // a. Base
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -1464,4 +1473,4 @@ $include-html-global-classes: $include-html-classes;
 // $include-html-visibility-classes: $include-html-classes;
 // $include-accessibility-classes: true;
 // $include-table-visibility-classes: true;
-// $include-legacy-visibility-classes: true;
+$include-legacy-visibility-classes: false;

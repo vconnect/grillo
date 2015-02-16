@@ -1,0 +1,141 @@
+
+$tip-height: rem-calc(5);
+$tooltip-bg-color: $oil !default;
+$tooltip-font-color: $white !default;
+
+@mixin tip-reset() {
+	&:before, &:after{
+		top: auto;
+		left: auto;
+		bottom: auto;
+		right: auto;
+	}
+	&:before{
+		margin: 0;
+		transform: none;
+	}
+	&:after{
+		border-color: transparent;
+		margin: 0;
+	}
+}
+
+[data-tip]{
+	position: relative;
+	// display: inline-block;
+	// border-bottom: 1px dashed;
+	&:before{ //Displays the tooltip text
+		content: attr(data-tip-text);
+		position: absolute;
+		background: $tooltip-bg-color;
+		color: $tooltip-font-color;
+		display: none;
+		font-size: rem-calc(12);
+		height: rem-calc(20);
+		line-height: rem-calc(20);
+		padding: rem-calc(0 5);
+		border-radius: rem-calc(3);
+		white-space: nowrap;
+	}
+	&:after{ //Displays the tip arrow
+		content: none; //Change the value of content before and after hover to trigger repaint in IE8
+		position: absolute;
+		border: ($tip-height + rem-calc(1)) solid $tooltip-bg-color; //Add 1px to ensure the tooltip overlaps the tip
+		width: 0;
+		height: 0;
+		display: none;
+	}
+	&:hover{
+		&:before,
+		&:after{
+			display: block;
+		}
+		&:after{
+			content: '';
+		}
+	}
+}
+
+// Defaults to north
+[data-tip], [data-tip="n"]{
+	&:before{
+		left: 50%;
+		bottom: 100%;
+		margin-bottom: $tip-height;
+		transform: translateX(-50%);
+	}
+	&:after{
+		border-color: transparent;
+		border-top-color: $tooltip-bg-color;
+		bottom: 100%;
+		margin-bottom: -($tip-height);
+		left: 50%;
+		margin-left: -($tip-height);
+	}
+}
+
+[data-tip="s"]{
+	@include tip-reset;
+	&:before{
+		top: 100%;
+		margin-top: $tip-height;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	&:after{
+		border-bottom-color: $tooltip-bg-color;
+		top: 100%;
+		margin-top: -($tip-height);
+		left: 50%;
+		margin-left: -($tip-height);
+	}
+}
+
+[data-tip="e"]{
+	@include tip-reset;
+	&:before{
+		left: 100%;
+		margin-left: $tip-height;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	&:after{
+		left: 100%;
+		border-right-color: $tooltip-bg-color;
+		margin-left: -($tip-height);
+		top: 50%;
+		margin-top: -($tip-height);
+	}
+}
+
+[data-tip="w"]{
+	@include tip-reset;
+	&:before{
+		right: 100%;
+		margin-right: $tip-height;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	&:after{
+		right: 100%;
+		border-left-color: $tooltip-bg-color;
+		margin-right: -($tip-height);
+		top: 50%;
+		margin-top: -($tip-height);
+	}
+}
+
+@if $ie == true {
+	[data-tip="n"],
+	[data-tip="s"]{
+		&:before{
+			left: 0;
+		}
+	}
+	[data-tip="e"],
+	[data-tip="w"]{
+		&:before{
+			top: 0;
+		}
+	}
+}

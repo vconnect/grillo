@@ -121,16 +121,37 @@ $modules: () !default;
 //
 //   rem-calc((16px, 32px, 48), 8px);
 
+// Modified to support rem-cal builds for opera-mini(ish) browsers that do not support
+// Rem values it instead uses em values. Please update this on upgrades.
 @function rem-calc($values, $base-value: $rem-base) {
   $max: length($values);
+  @if $no-js == true {
+      @if $max == 1 { @return stubPxCalc(nth($values, 1)); }
 
-  @if $max == 1 { @return convert-to-rem(nth($values, 1), $base-value); }
+      $emValues: ();
+      @for $i from 1 through $max {
+        $emValues: append($emValues, stubPxCalc(nth($values, $i)));
+      }
+      @return $emValues;
+  } @else if $ie == true {
+       @if $max == 1 { @return stubPxCalc(nth($values, 1)); }
 
-  $remValues: ();
-  @for $i from 1 through $max {
-    $remValues: append($remValues, convert-to-rem(nth($values, $i), $base-value));
+      $pxValues: ();
+      @for $i from 1 through $max {
+        $pxValues: append($pxValues, stubPxCalc(nth($values, $i)));
+      }
+      @return $pxValues;
+  } @else {
+
+      @if $max == 1 { @return convert-to-rem(nth($values, 1), $base-value); }
+
+      $remValues: ();
+      @for $i from 1 through $max {
+        $remValues: append($remValues, convert-to-rem(nth($values, $i), $base-value));
+      }
+      @return $remValues;
+
   }
-  @return $remValues;
 }
 
 // OLD EM CALC

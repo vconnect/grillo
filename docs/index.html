@@ -8,7 +8,76 @@
 
 <div class="wrapper">
 
-<div>Docs index page.</div>
+
+<style>
+	body{
+		/*width: 500px;*/
+		/*margin: 0 auto;*/
+		/*background-color: #CCC;*/
+		/*padding: 50px;*/
+	}
+	.pages{
+		/*width: 500px;*/
+		padding: 0 50px;
+		/*margin: 0 auto;*/
+		/*background-color: #EEE;*/
+	}
+	.pages-list{
+		margin: 0;
+	}
+	.pages-list li{
+		/*margin-bottom: 5px;*/
+		padding: 5px;
+		list-style: none;
+		width: 25%;
+		float: left;
+	}
+	.pages-list li a{
+		border: 1px dotted #CCC;
+		border-radius: 5px;
+		display: block;
+		padding: 10px;
+		transition: all 0.3s ease;
+	}
+	.pages-list li a:hover{
+		background-color: #F3F3F3;
+	}
+	@media (max-width: 640px){
+		.pages-list li{
+			width: 100%;
+		}
+	}
+</style>
+
+<div class="pages">
+	<ul class="pages-list clearfix">
+		
+			<li><a href="grid.html">
+				
+					grid
+				
+			</a></li>
+		
+			<li><a href="index.html">
+				
+					Home Page
+				
+			</a></li>
+		
+			<li><a href="tooltips.html">
+				
+					tooltips
+				
+			</a></li>
+		
+			<li><a href="visibility.html">
+				
+					visibility
+				
+			</a></li>
+		
+	</ul>
+</div>
 
 </div>
 
