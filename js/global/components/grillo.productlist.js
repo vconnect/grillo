@@ -30,7 +30,7 @@
 						$curList.find(cf.$viewProducts).html('Show all');
 					}
 					else{
-						$curList.find(cf.$viewProducts).html('Show less')
+						$curList.find(cf.$viewProducts).html('Show less');
 					}
 				});
 

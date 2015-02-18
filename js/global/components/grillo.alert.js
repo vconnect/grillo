@@ -4,7 +4,7 @@
 		return {
 			init: function(){
 				// initialize component
-				console.log('Alert component initialized')
+				console.log('Alert component initialized');
 			}
 		};
 	});

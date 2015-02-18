@@ -16,6 +16,10 @@ module.exports = {
 		files: ['js/**/*.js'],
 		tasks: ['newer:jshint:all','newer:uglify', 'newer:bytesize']
 	},
+	concatjs: {
+		files: ['js/**/*.src.js'],
+		tasks: ['concat_in_order', 'uglify', 'newer:bytesize']
+	},
 
 	unitTest: {
 	  files: ['tests/**/test-*.html', 'tests/**/*.js'],

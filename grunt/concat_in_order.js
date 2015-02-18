@@ -17,11 +17,6 @@ module.exports = {
 		},
 		onlyConcatRequiredFiles: true
 	},
-	all: {
-		files: {
-			'js/mybuild.js': ['js/global/grillo.core.js']
-		}
-	},
 	docs: {
 		files: {
 			'js/docs.js': 'js/docs/docs.src.js'

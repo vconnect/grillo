@@ -19,8 +19,12 @@
 	var channels = {};
 	var hOP = channels.hasOwnProperty;
 
-	// Helper functions
+	// HELPER FUNCTIONS
+	// ----------------
 
+	var getStyle = function(el, prop){
+		return ('getComputedStyle' in window) && window.getComputedStyle(el, null)[prop] || el.currentStyle[prop];
+	};
 	// isFunction - http://stackoverflow.com/a/7356528
 	var isFunction = function(fn) {
 		var getType = {};
@@ -29,11 +33,11 @@
 
 	var isString = function(i){
 		return typeof i === 'string';
-	}
+	};
 
 	var isArray = function(i){
 		return i.constructor === Array;
-	}
+	};
 
 	var noop = function(){};
 
@@ -49,6 +53,78 @@
 			}
 		}
 		return a;
+	};
+
+	window.matchMedia = window.matchMedia || function() {
+		"use strict";
+		console.log('a');
+		// For browsers that support matchMedium api such as IE 9 and webkit
+		var styleMedia = (window.styleMedia || window.media);
+
+		// For those that don't support matchMedium
+		if (!styleMedia) {
+			var style       = document.createElement('style'),
+					script      = document.getElementsByTagName('script')[0],
+					info        = null;
+
+			style.type  = 'text/css';
+			style.id    = 'matchmediajs-test';
+
+			script.parentNode.insertBefore(style, script);
+
+			// 'style.currentStyle' is used by IE <= 8 and 'window.getComputedStyle' for all other browsers
+			info = ('getComputedStyle' in window) && window.getComputedStyle(style, null) || style.currentStyle;
+
+			styleMedia = {
+				matchMedium: function(media) {
+					var text = '@media ' + media + '{ #matchmediajs-test { width: 1px; } }';
+
+					// 'style.styleSheet' is used by IE <= 8 and 'style.textContent' for all other browsers
+					if (style.styleSheet) {
+						style.styleSheet.cssText = text;
+					} else {
+						style.textContent = text;
+					}
+
+					// Test if media query is true or false
+					return info.width === '1px';
+				}
+			};
+		}
+
+		return function(media) {
+			return {
+				matches: styleMedia.matchMedium(media || 'all'),
+				media: media || 'all'
+			};
+		};
+	}()
+
+	// MEDIA QUERY FUNCTIONS
+	// ---------------------
+
+	var header_helpers = function (class_array) {
+    var i = class_array.length;
+    var head = $('head');
+
+    while (i--) {
+      if(head.has('.' + class_array[i]).length === 0) {
+        head.append('<meta class="' + class_array[i] + '">');
+      }
+    }
+  };
+
+  header_helpers([
+    'grillo-mq-xsmall',
+    'grillo-mq-small',
+    'grillo-mq-medium',
+    'grillo-mq-large']);
+
+	var mq = {
+		xsmall: getStyle(document.querySelectorAll('.grillo-mq-xsmall')[0], 'font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
+		small: getStyle(document.querySelectorAll('.grillo-mq-small')[0], 'font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
+		medium: getStyle(document.querySelectorAll('.grillo-mq-medium')[0], 'font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
+		large: getStyle(document.querySelectorAll('.grillo-mq-large')[0], 'font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, '')
 	};
 
 
@@ -67,7 +143,7 @@
 	GrilloException = function(message){
 		this.name = "GrilloException";
 		this.message = message || "An error has occurred.";
-	}
+	};
 	GrilloException.prototype = Object.create(Error.prototype);
 	GrilloException.prototype.constructor = GrilloException;
 
@@ -82,6 +158,7 @@
 		comps: _comps,
 		utils: _utils,
 		config: _config,
+		scriptStore: _scriptStore,
 		addComponent: function(compName, compDeps, compFn){
 			// grillo.addComponent('component');
 			// grillo.addComponent('component', fn);
@@ -91,7 +168,7 @@
 				// compDeps array skipped
 				compFn = compFn || compDeps;
 				compDeps = [];
-			};
+			}
 			// console.log(_comps[compName]);
 			if(_comps.hasOwnProperty(compName))throw new GrilloException("Already defined a component as: " + compName);
 			_comps[compName] = compFn;
@@ -131,7 +208,7 @@
 
 			var _failFn = noop;
 			var _alwaysFn = noop;
-			var _testFn = (callback && testFn) || function(){return true;} //if two callbacks exist, then that must be testFn
+			var _testFn = (callback && testFn) || function(){return true;}; //if two callbacks exist, then that must be testFn
 			var _callback = callback || testFn || noop; //if only one callback exists, then that must be callback
 			if(!isFunction(_callback)){
 				var callbackObj = _callback;
@@ -159,7 +236,7 @@
 					else _failFn();
 					_alwaysFn();
 				}
-			}
+			};
 
 			// Watch scripts load in IE
 			var stateChange = function(){
@@ -173,14 +250,14 @@
 
 					checkProgress(); //check for when all the scripts are loaded
 				}
-			}
+			};
 
 			// Watch scripts load in modern browsers
 			var stateChangeModern = function(){
 				// console.log('modern onload called.');
 				// console.log(arguments);
 				checkProgress();
-			}
+			};
 
 			// loop through script URLs
 			for(var key in scripts){
@@ -192,7 +269,7 @@
 					console.log('Not a JS file.');
 					src += '.js';
 				}
-				for(scpt in _scriptStore){
+				for(var scpt in _scriptStore){
 				// loop through scriptStore to check if the script has already been added
 					if(_scriptStore[scpt] == src){
 						scriptExists = true;
@@ -219,7 +296,7 @@
 						script.src = src;
 					}
 					else{ //fallback to defer
-						document.write('<script src="' + src + '" defer></' + 'script>');
+						document.write('<script src="' + src + '" defer></' + 'script>'); // jshint ignore:line
 					}
 					_scriptStore[key] = src;
 				}
@@ -236,10 +313,10 @@
 			if(attrName){
 				if(attrValue){
 					if(_namespace)return "[data-" + _namespace + "-" + attrName + "=" + attrValue + "]";
-					return "[data-" + attrName + "=" + attrValue + "]"
+					return "[data-" + attrName + "=" + attrValue + "]";
 				}
 				if(_namespace)return "data-" + _namespace + "-" + attrName;
-				return "data-" + attrName
+				return "data-" + attrName;
 			}
 			return "data-" + _namespace;
 			// return (attrName && ((attrValue && "[data-" + _namespace + "-" + attrName + "=" + attrValue + "]") || (_namespace && "data-" + _namespace + "-" + attrName) || "data-" + attrName)) || "data-" + _namespace;
@@ -252,7 +329,7 @@
 			lenListeners = channels[channel].length;
 			for(i = 0; i < lenListeners; i++){
 				// Execute each listener
-				channels[channel][i] && channels[channel][i](data);
+				channels[channel][i] && channels[channel][i](data); // jshint ignore:line
 			}
 			return this;
 		},
@@ -270,7 +347,7 @@
 				}
 			};
 		},
-		scriptStore: _scriptStore
+		mq: mq
 	};
 }(this, document));
 
@@ -299,5 +376,7 @@ grillo API:
 	grillo.notifyMe('notification');
 
 	grillo.getAttr('role') => 'data-vc-role'
+
+	matchMedia(grillo.mq.small) => true
 
 */

@@ -520,23 +520,19 @@ QUnit.test("calls the failure callback in the passed object", function(assert){
 	});
 });
 
+QUnit.module("Test media query related functionality");
+
+QUnit.test("Test matchMedia() functionality", function(assert){
+	assert.ok(grillo.mq.xsmall, 'xsmall media query object exists');
+	assert.ok(grillo.mq.small, 'small media query object exists');
+	assert.ok(grillo.mq.medium, 'medium media query object exists');
+	assert.ok(grillo.mq.large, 'large media query object exists');
+});
 /*
-	require:
-		loads script
+	mediaQueries:
+		Adds the media query classes to meta elements in head element (to enable access)
 
-		loads multiple scripts
+		Gets the media queries from the meta elements style
 
-		calls the callback function
-			for jquery.js
-					js/jquery.js
-					jquery
-					js/jquery
-					//mcdn.domain.com/script.js
-					foo
-
-		evaluates test function before callback
-
-		calls the failure function
-
-		calls with the object
+		Matches the media query
 */
