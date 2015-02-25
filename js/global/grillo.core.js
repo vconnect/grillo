@@ -23,7 +23,7 @@
 	// ----------------
 
 	var getStyle = function(el, prop){
-		return ('getComputedStyle' in window) && window.getComputedStyle(el, null)[prop] || el.currentStyle[prop];
+		//return ('getComputedStyle' in window) && window.getComputedStyle(el, null)[prop] || el.currentStyle[prop];
 	};
 	// isFunction - http://stackoverflow.com/a/7356528
 	var isFunction = function(fn) {
@@ -103,7 +103,7 @@
 	// MEDIA QUERY FUNCTIONS
 	// ---------------------
 
-	var header_helpers = function (class_array) {
+	/*var header_helpers = function (class_array) {
     var i = class_array.length;
     var head = $('head');
 
@@ -126,7 +126,7 @@
 		medium: getStyle(document.querySelectorAll('.grillo-mq-medium')[0], 'font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
 		large: getStyle(document.querySelectorAll('.grillo-mq-large')[0], 'font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, '')
 	};
-
+	*/
 
 	var patch = function(comp, scope){
 		//Get default _config options from components
@@ -347,7 +347,7 @@
 				}
 			};
 		},
-		mq: mq
+		mq: {} //mq
 	};
 }(this, document));
 
