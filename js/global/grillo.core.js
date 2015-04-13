@@ -127,7 +127,6 @@
 		large: getCSS(document.querySelector('.grillo-mq-large'), 'font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, '')
 	};
 
-
 	var patch = function(comp, scope){
 		//Get default _config options from components
 		// scope._config[comp] = {};
