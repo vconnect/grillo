@@ -22,8 +22,8 @@
 	// HELPER FUNCTIONS
 	// ----------------
 
-	var getStyle = function(el, prop){
-		return ('getComputedStyle' in window) && window.getComputedStyle(el, null)[prop] || el.currentStyle[prop];
+	var getCSS = function(el, prop){
+		return ('getComputedStyle' in window) && window.getComputedStyle(el, null).getPropertyValue(prop) || el.currentStyle[prop];
 	};
 	// isFunction - http://stackoverflow.com/a/7356528
 	var isFunction = function(fn) {
@@ -98,7 +98,7 @@
 				media: media || 'all'
 			};
 		};
-	}()
+	}();
 
 	// MEDIA QUERY FUNCTIONS
 	// ---------------------
@@ -121,10 +121,10 @@
     'grillo-mq-large']);
 
 	var mq = {
-		xsmall: getStyle(document.querySelectorAll('.grillo-mq-xsmall')[0], 'font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
-		small: getStyle(document.querySelectorAll('.grillo-mq-small')[0], 'font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
-		medium: getStyle(document.querySelectorAll('.grillo-mq-medium')[0], 'font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
-		large: getStyle(document.querySelectorAll('.grillo-mq-large')[0], 'font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, '')
+		xsmall: getCSS(document.querySelector('.grillo-mq-xsmall'), 'font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
+		small: getCSS(document.querySelector('.grillo-mq-small'), 'font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
+		medium: getCSS(document.querySelector('.grillo-mq-medium'), 'font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
+		large: getCSS(document.querySelector('.grillo-mq-large'), 'font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, '')
 	};
 
 
