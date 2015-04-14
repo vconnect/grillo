@@ -7,15 +7,19 @@ module.exports = {
   //     watchTask: true
   // }
 
+  grillo: {
+      src : [
+      	'css/grillo.css',
+      	'js/global/**/*.js',
+      	'spec/**/*.js'
+      ]
+  },
   docs: {
       src : [
       	'css/docs.css',
       	'js/docs/**/*.js',
       	'docs/*.html'
       ]
-  },
-  bsFiles: {
-    src : ["css/*.css", "./*.html", "js/min/app.min.js"]
   },
 
   options: {

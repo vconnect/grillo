@@ -24,6 +24,11 @@ module.exports = {
 	unitTest: {
 	  files: ['tests/**/test-*.html', 'tests/**/*.js'],
 	  tasks: ['qunit']
+	},
+
+	test: {
+		files: ['js/**/*.js','spec/**/*.js'],
+		tasks: ['jshint', 'jasmine:global:build']
 	}
 
 }

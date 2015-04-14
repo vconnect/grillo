@@ -6,7 +6,7 @@ module.exports = {
 
 	grillo:{
 		files:{// remember sass does the concat
-			'css/main.css': 'scss/main.scss'
+			'css/grillo.css': 'scss/grillo.scss'
 		}
 	},
 	docs: {

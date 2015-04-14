@@ -1,5 +1,13 @@
 {
-  "default": [],
+  "default": [
+  	"newer:jshint:all",
+  	"newer:uglify:all",
+  	"newer:sass:grillo",
+  	"newer:cssmin:grillo",
+  	"browserSync:grillo",
+  	"bytesize:all",
+  	"watch"
+  ],
 
   "docs": [
   	"assemble:docs",
@@ -26,6 +34,11 @@
   ],
 
   "test": [
-	  "qunit:unitTest"
+	  "jshint",
+	  "jasmine"
+  ],
+
+  "spec": [
+  	"jasmine"
   ]
 }

@@ -11,7 +11,7 @@
 	// Require variables
 	var _requireTimeout = 5000;
 	var _scriptPaths = {
-		foo: 'js/script5.js'
+		foo: 'spec/utilities/script5.js'
 	};
 	var _scriptStore = {};
 
@@ -24,6 +24,17 @@
 
 	var getCSS = function(el, prop){
 		return ('getComputedStyle' in window) && window.getComputedStyle(el, null).getPropertyValue(prop) || el.currentStyle[prop];
+	};
+
+	var hasClass = function(el, className){
+		if(el.classList)el.classList.contains(className);
+		else new RegExp('(^| )' + className + '($| )', 'gi').test(el.className);
+	};
+
+	var addClass = function(el, className){
+		if(el.classList)el.classList.add(className);
+		else el.className += ' ' + className;
+		return el;
 	};
 	// isFunction - http://stackoverflow.com/a/7356528
 	var isFunction = function(fn) {
@@ -105,12 +116,20 @@
 
 	var header_helpers = function (class_array) {
     var i = class_array.length;
-    var head = $('head');
+    var head = document.querySelector('head');
 
     while (i--) {
-      if(head.has('.' + class_array[i]).length === 0) {
-        head.append('<meta class="' + class_array[i] + '">');
-      }
+    	if(head.querySelectorAll(class_array[i]).length === 0){
+    		var metaEl = document.createElement('meta');
+    		head.appendChild(addClass(metaEl, class_array[i]));
+    	}
+    	// for (var j = head.children.length - 1; j >= 0; j--) {
+    	// 	if(head.children[j].nodeType != 8) //Skip comment nodes in IE8
+    	// 		head.children[j]
+    	// };
+     //  if(head.has('.' + class_array[i]).length === 0) {
+     //    head.append('<meta class="' + class_array[i] + '">');
+     //  }
     }
   };
 
@@ -148,6 +167,11 @@
 
 
 	window.grillo = {
+		/**
+		 * init The function used to initialise the system
+		 * @param  {object} _config Optional. Configuration object to override the default config
+		 * @return {boolean}         ...
+		 */
 		init: function(_config){
 			// Initialize all components
 			for(var comp in _comps){
@@ -158,6 +182,14 @@
 		utils: _utils,
 		config: _config,
 		scriptStore: _scriptStore,
+		extend: extend,
+
+		/**
+		 * addComponent Used to add a component to the system
+		 * @param {string} compName Specifies the name of the component to be created
+		 * @param {string} compDeps Specifies the dependencies of the component
+		 * @param {function} compFn   Specifies the function definition of the component
+		 */
 		addComponent: function(compName, compDeps, compFn){
 			// grillo.addComponent('component');
 			// grillo.addComponent('component', fn);
@@ -169,12 +201,20 @@
 				compDeps = [];
 			}
 			// console.log(_comps[compName]);
+			// Throw an exception if a component with the same name already exists
 			if(_comps.hasOwnProperty(compName))throw new GrilloException("Already defined a component as: " + compName);
 			_comps[compName] = compFn;
 			_config[compName] = {};
 
 			return this; //return the this object for chaining
 		},
+
+		/**
+		 * addUtility Used to add a utility to the system
+		 * @param {string} utilName Specifies the name of the utility to be created
+		 * @param {string} utilDeps Specifies the dependencies of the utility
+		 * @param {function} utilFn   Specifies the function definition of the utility
+		 */
 		addUtility: function(utilName, utilDeps, utilFn){
 			// Getter/Setter
 			// grillo.addUtility('utility');
@@ -195,6 +235,40 @@
 
 			return this; //return the this object for chaining
 		},
+
+		/**
+		 * removeComponent removes a component from the system
+		 * @param  {string} compName Name of the component to remove
+		 * @return {object} grillo object
+		 */
+		removeComponent: function(compName){
+			delete _comps[compName];
+			delete _config[compName];
+
+			return this; //return the this object for chaining
+		},
+
+		/**
+		 * removeUtility removes a utility from the system
+		 * @param  {string} utilName Name of the utility to remove
+		 * @return {object} grillo object
+		 */
+		removeUtility: function(utilName){
+			delete _utils[utilName];
+			delete _config[utilName];
+
+			delete this[utilName];
+
+			return this; //return the this object for chaining
+		},
+
+		/**
+		 * require Used to asynchronously load scripts into the webpage
+		 * @param  {string/array}   scriptURLs specifies the URLs to be asynchronously loaded
+		 * @param  {function}   testFn     optional. A Test to check if the scripts were loaded
+		 * @param  {function} callback   The callback function to be called after loading the scripts
+		 * @return {boolean}              ...
+		 */
 		require: function(scriptURLs, testFn, callback){
 			// script loading - http://www.html5rocks.com/en/tutorials/speed/script-loading/
 
@@ -301,13 +375,22 @@
 				}
 				// checkProgress();
 			}
-
-			failTimeout = setTimeout(function(){ // call the failure function if the scripts were not completely loaded in the specified time
-				_failFn();
-				_alwaysFn();
-				return false;
-			}, _requireTimeout);
+			if(flgCount < noOfScripts){
+				// Only create the timeout if the scripts have not yet finished loading
+				failTimeout = setTimeout(function(){ // call the failure function if the scripts were not completely loaded in the specified time
+					_failFn();
+					_alwaysFn();
+					return false;
+				}, _requireTimeout);
+			}
 		},
+
+		/**
+		 * getAttr Used to get the attribute of the specified name-value pair
+		 * @param  {string} attrName  Specifies the name of the attribute to be gotten
+		 * @param  {string} attrValue Specifies the value to check for when getting the attribute
+		 * @return {string}           The attribute with the proper namespace-name-value combination
+		 */
 		getAttr: function(attrName, attrValue){
 			if(attrName){
 				if(attrValue){
@@ -320,7 +403,14 @@
 			return "data-" + _namespace;
 			// return (attrName && ((attrValue && "[data-" + _namespace + "-" + attrName + "=" + attrValue + "]") || (_namespace && "data-" + _namespace + "-" + attrName) || "data-" + attrName)) || "data-" + _namespace;
 		},
+
 		// PubSub from David Walsh - http://davidwalsh.name/pubsub-javascript
+		/**
+		 * publish Used to publish data to a specified channel
+		 * @param  {string} channel Specifies the channel to be published to
+		 * @param  {string} data    Specifies the data object
+		 * @return {grillo object}         The grillo object (this)
+		 */
 		publish: function(channel, data){
 			// If the channel doesn't exist, just return. (It simply means there are no listeners)
 			if(!hOP.call(channels, channel)) return;
@@ -332,6 +422,13 @@
 			}
 			return this;
 		},
+
+		/**
+		 * subscribe Used to subscribe to a specific channel to receive updates
+		 * @param  {string} channel  Specifies the channel to listen to
+		 * @param  {function} listener Specifies the callback function to be executed when data is published
+		 * @return {grillo object}          The grillo object (this)
+		 */
 		subscribe: function(channel, listener){
 			// If the channel doesn't exist, create the object
 			if(!hOP.call(channels, channel)) channels[channel] = [];
@@ -346,6 +443,11 @@
 				}
 			};
 		},
+
+		/**
+		 * mq Object containing the supported media queries
+		 * @type {object}
+		 */
 		mq: mq
 	};
 }(this, document));
