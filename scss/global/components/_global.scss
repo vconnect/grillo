@@ -220,6 +220,15 @@ $base-line-height: 1.5 !default;
   clip: auto;
 }
 
+// @mixins
+//
+// For abstracting the media queries
+@mixin mq($range:$large-up){
+	@media #{$range} {
+		@content;
+	}
+}
+
 $white         : #FFFFFF !default;
 $ghost         : #FAFAFA !default;
 $snow          : #F9F9F9 !default;
@@ -241,15 +250,16 @@ $jet           : #222222 !default;
 $black         : #000000 !default;
 
 // We use these as default colors throughout
-$primary-color: #008CBA !default;   // bondi-blue
-$secondary-color: #e7e7e7 !default; // white-lilac
-$alert-color: #f04124 !default;     // cinnabar
-$success-color: #43AC6A !default;   // sea-green
-$warning-color: #f08a24 !default;   // carrot
-$info-color: #a0d3e8 !default;      // cornflower
+$primary-color: #ff6d00 !default; // #008CBA !default;   // bondi-blue
+$secondary-color: #99cc00 !default; // #e7e7e7 !default; // white-lilac
+$error-color: #d22c25 !default;
+$alert-color: #d22c25 !default; // #f04124 !default;     // cinnabar
+$success-color: #2ecc71 !default; // #43AC6A !default;   // sea-green
+$warning-color: #f1c40f !default; // #f08a24 !default;   // carrot
+$info-color: #33b5e5 !default; // #a0d3e8 !default;      // cornflower
 
 // We use these to define default font stacks
-$font-family-sans-serif: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif !default;
+$font-family-sans-serif: "Open Sans", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif !default;
 $font-family-serif: Georgia, Cambria, "Times New Roman", Times, serif !default;
 $font-family-monospace: Consolas, "Liberation Mono", Courier, monospace !default;
 

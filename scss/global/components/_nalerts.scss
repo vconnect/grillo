@@ -1,0 +1,79 @@
+// alert container settings
+$alert-top-offset: rem-calc(50) !default;
+$alert-max-width: rem-calc(400) !default;
+
+// alert border settings
+$alert-border-radius: rem-calc(3) !default;
+$alert-border-width: rem-calc(1) !default;
+$alert-border-darken-factor: 5% !default;
+
+// alert content settings
+$alert-content-padding: rem-calc(10) !default;
+$alert-content-darken-factor: 20% !default;
+
+// alert close button settings
+$alert-close-button-color: $oil !default;
+
+@mixin alert-base() {
+	position: relative;
+	border: $alert-border-width solid $primary-color;
+	background: white;
+	&:first-child{
+		border-top-left-radius: $alert-border-radius;
+		border-top-right-radius: $alert-border-radius;
+	}
+	&:last-child{
+		border-bottom-left-radius: $alert-border-radius;
+		border-bottom-right-radius: $alert-border-radius;
+	}
+	.alert-content{
+		padding: $alert-content-padding;
+	}
+	.alert-close{
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: $alert-content-padding;
+		text-decoration: none;
+		color: $alert-close-button-color;
+		font-weight: bold;
+	}
+}
+@mixin alert-style($accent-color:$primary-color) {
+	border-color: darken($accent-color, $alert-border-darken-factor);//$accent-color;
+	background: $accent-color;
+	@if(lightness($accent-color)>50){
+		color: darken($accent-color, $alert-content-darken-factor);
+	}
+	@else {
+		color: $white;
+	}
+	.alert-close{
+		color: darken($accent-color, $alert-content-darken-factor);
+	}
+}
+
+.alert-container{
+	position: absolute;
+	top: $alert-top-offset;
+	width: 100%;
+	.alert-box{
+		margin: 0 auto;
+		max-width: $alert-max-width;
+	}
+}
+.alert-box{
+	@include alert-base;
+	&.alert-warning{
+		@include alert-style($warning-color);
+	}
+	&.alert-error{
+		@include alert-style($alert-color);
+	}
+	&.alert-info{
+		@include alert-style($info-color);
+	}
+	&.alert-success{
+		@include alert-style($success-color);
+	}
+}

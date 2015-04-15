@@ -53,7 +53,7 @@
 	var noop = function(){};
 
 	// from qunit.js
-	var extend = function( a, b ) {
+	var extend = function( a, b, c ) {
 		for ( var prop in b ) {
 			if ( b[ prop ] === undefined ) {
 				delete a[ prop ];
@@ -62,6 +62,9 @@
 			} else if ( prop !== "constructor" || a !== window ) {
 				a[ prop ] = b[ prop ];
 			}
+		}
+		if(c){
+			extend(a, c);
 		}
 		return a;
 	};
@@ -178,6 +181,7 @@
 				init_comp(comp, this);
 			}
 		},
+		namespace: _namespace,
 		comps: _comps,
 		utils: _utils,
 		config: _config,

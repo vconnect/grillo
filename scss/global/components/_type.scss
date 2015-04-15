@@ -158,12 +158,12 @@ $align-class-breakpoints:
   .text-justify { text-align: justify !important; }
 
   @for $i from 1 through length($align-class-names) {
-    @media #{(nth($align-class-breakpoints, $i))} {
-      .#{(nth($align-class-names, $i))}-text-left { text-align: left !important; }
+  	@include mq(nth($align-class-breakpoints, $i)){
+  		.#{(nth($align-class-names, $i))}-text-left { text-align: left !important; }
       .#{(nth($align-class-names, $i))}-text-right   { text-align: right !important; }
       .#{(nth($align-class-names, $i))}-text-center  { text-align: center !important; }
       .#{(nth($align-class-names, $i))}-text-justify { text-align: justify !important; }
-    }
+  	}
   }
 }
 
@@ -273,7 +273,7 @@ $align-class-breakpoints:
     h5 { font-size: $h5-font-size - $h5-font-reduction; }
     h6 { font-size: $h6-font-size - $h6-font-reduction; }
 
-    .subheader { @include subheader; }
+    // .subheader { @include subheader; }
 
     hr {
       border: $hr-border-style $hr-border-color;
@@ -381,19 +381,19 @@ $align-class-breakpoints:
     }
 
     /* Abbreviations */
-    abbr,
-    acronym {
-      text-transform: uppercase;
-      font-size: 90%;
-      color: $body-font-color;
-      cursor: $cursor-help-value;
-    }
-    abbr {
-      text-transform: none;
-      &[title] {
-        border-bottom: $acronym-underline;
-      }
-    }
+    // abbr,
+    // acronym {
+    //   text-transform: uppercase;
+    //   font-size: 90%;
+    //   color: $body-font-color;
+    //   cursor: $cursor-help-value;
+    // }
+    // abbr {
+    //   text-transform: none;
+    //   &[title] {
+    //     border-bottom: $acronym-underline;
+    //   }
+    // }
 
     /* Blockquotes */
     blockquote {
@@ -422,44 +422,44 @@ $align-class-breakpoints:
     }
 
     /* Microformats */
-    .vcard {
-      display: inline-block;
-      margin: $microformat-margin;
-      border: $microformat-border-width $microformat-border-style $microformat-border-color;
-      padding: $microformat-padding;
+    // .vcard {
+    //   display: inline-block;
+    //   margin: $microformat-margin;
+    //   border: $microformat-border-width $microformat-border-style $microformat-border-color;
+    //   padding: $microformat-padding;
 
-      li {
-        margin: 0;
-        display: block;
-      }
-      .fn {
-        font-weight: $microformat-fullname-font-weight;
-        font-size: $microformat-fullname-font-size;
-      }
-    }
+    //   li {
+    //     margin: 0;
+    //     display: block;
+    //   }
+    //   .fn {
+    //     font-weight: $microformat-fullname-font-weight;
+    //     font-size: $microformat-fullname-font-size;
+    //   }
+    // }
 
-    .vevent {
-      .summary { font-weight: $microformat-summary-font-weight; }
+    // .vevent {
+    //   .summary { font-weight: $microformat-summary-font-weight; }
 
-      abbr {
-        cursor: $cursor-default-value;
-        text-decoration: $microformat-abbr-font-decoration;
-        font-weight: $microformat-abbr-font-weight;
-        border: none;
-        padding: $microformat-abbr-padding;
-      }
-    }
+    //   abbr {
+    //     cursor: $cursor-default-value;
+    //     text-decoration: $microformat-abbr-font-decoration;
+    //     font-weight: $microformat-abbr-font-weight;
+    //     border: none;
+    //     padding: $microformat-abbr-padding;
+    //   }
+    // }
 
 
-    @media #{$medium-up} {
-      h1,h2,h3,h4,h5,h6 { line-height: $header-line-height; }
+		@include mq($medium-up){
+			h1,h2,h3,h4,h5,h6 { line-height: $header-line-height; }
       h1 { font-size: $h1-font-size; }
       h2 { font-size: $h2-font-size; }
       h3 { font-size: $h3-font-size; }
       h4 { font-size: $h4-font-size; }
       h5 { font-size: $h5-font-size; }
       h6 { font-size: $h6-font-size; }
-    }
+		}
 
     // Only include these styles if you want them.
     @if $include-print-styles {

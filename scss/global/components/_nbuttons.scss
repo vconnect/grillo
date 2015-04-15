@@ -1,0 +1,86 @@
+$button-font-size: rem-calc(12) !default;
+$button-padding-width: rem-calc(20) !default;
+$button-padding-height: rem-calc(9) !default;
+$button-border-radius: rem-calc(3) !default;
+$button-border-width: 0 !default;
+$button-darken-factor: 5% !default;
+
+@mixin btn-base() {
+	border-radius: $button-border-radius;
+	line-height: 1;
+	display: inline-block;
+	transition: all 0.3s ease;
+}
+
+@mixin btn-style($bg:$primary-color, $fg:$white-color, $border-color:currentColor, $border-width: $button-border-width, $border-style: solid) {
+	color: $fg;
+	background-color: $bg;
+	border-color: $border-color;
+	border-width: $border-width;
+	border-style: $border-style;
+	@if $border-width > 0 {
+		padding: ($button-padding-height - $border-width) ($button-padding-width - $border-width);
+	}
+	&:hover, &:focus{
+		color: $fg;
+		@if lightness($bg) > 50 {
+			background-color: darken($bg, $button-darken-factor);
+		}
+		@else {
+			background-color: lighten($bg, $button-darken-factor);
+		}
+	}
+}
+
+@mixin btn-size($size-factor:1, $full-width: false) {
+	font-size: $button-font-size * $size-factor;
+	padding: ($button-padding-height * $size-factor) ($button-padding-width *$size-factor);
+	@if $full-width {
+		width: 100%;
+	}
+}
+
+@mixin btn() {
+	@include btn-base;
+	@include btn-style;
+	@include btn-size;
+	&.active{
+		@include btn-style($bg:$white, $fg:$primary-color, $border-width: rem-calc(1), $border-style: solid);
+	}
+	&.invert{
+		@include btn-style($bg:$white, $fg:$primary-color);
+	}
+	&.dark{
+		@include btn-style($bg:$dark-gray-color, $fg:$white-color);
+		&.active{
+			color: $primary-color;
+		}
+	}
+	&.lightgray{
+		@include btn-style($bg:$dark-white-color, $fg:$dark-gray-color, $border-color: $muted-color, $border-width: rem-calc(1), $border-style: solid);
+		&.active{
+			color: $primary-color;
+		}
+	}
+	&.transparent{
+		@include btn-style($bg:rgba($white, 0), $border-width: rem-calc(1), $border-style: solid);
+	}
+	&.large{
+		@include btn-size(1.2);
+	}
+	&.x-large{
+		@include btn-size(1.5);
+	}
+}
+
+.btn{
+	@include btn;
+}
+a.btn{
+	text-decoration: none !important;
+}
+form{
+	.btn{
+		margin-bottom: rem-calc(10);
+	}
+}
