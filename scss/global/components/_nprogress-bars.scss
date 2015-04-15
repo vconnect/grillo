@@ -1,0 +1,50 @@
+$progress-bg-color: $dark-white-color;
+$progress-meter-bg-color: $primary-color;
+$progress-meter-height: rem-calc(20);
+$progress-padding: rem-calc(3);
+$progress-radius: $progress-meter-height;
+
+@mixin progress-base() {
+	padding: $progress-padding;
+	.meter{
+		display: block;
+		height: $progress-meter-height;
+	}
+}
+
+@mixin progress-style($progress-bg-color: $progress-bg-color, $meter-bg-color: $progress-meter-bg-color) {
+	background-color: $progress-bg-color;
+	.meter{
+		background-color: $meter-bg-color;
+	}
+}
+
+@mixin progress-radius($progress-radius: $progress-radius) {
+	border-radius: $progress-radius;
+	.meter{
+		border-radius: $progress-radius;
+	}
+}
+
+.progress{
+	@include progress-base;
+	@include progress-style;
+	&.round{
+		@include progress-radius;
+	}
+	&.success{
+		@include progress-style($meter-bg-color: $success-color);
+	}
+	&.warning{
+		@include progress-style($meter-bg-color: $warning-color);
+	}
+	&.error{
+		@include progress-style($meter-bg-color: $error-color);
+	}
+	&.secondary{
+		@include progress-style($meter-bg-color: $secondary-color);
+	}
+	&.info{
+		@include progress-style($meter-bg-color: $info-color);
+	}
+}
