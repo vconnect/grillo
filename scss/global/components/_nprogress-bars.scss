@@ -1,8 +1,8 @@
-$progress-bg-color: $dark-white-color;
-$progress-meter-bg-color: $primary-color;
-$progress-meter-height: rem-calc(20);
-$progress-padding: rem-calc(3);
-$progress-radius: $progress-meter-height;
+$progress-bg-color: $dark-white-color !default;
+$progress-meter-bg-color: $primary-color !default;
+$progress-meter-height: rem-calc(20) !default;
+$progress-padding: rem-calc(3) !default;
+$progress-radius: $progress-meter-height !default;
 
 @mixin progress-base() {
 	padding: $progress-padding;

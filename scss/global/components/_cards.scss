@@ -1,0 +1,66 @@
+$card-padding: rem-calc(10) !default;
+$card-margin: rem-calc(10) !default;
+$card-border-radius: rem-calc(3) !default;
+$card-header-bg-color: $dark-white-color !default;
+
+@mixin card-base() {
+	margin: $card-margin;
+	border-radius: $card-border-radius;
+	box-shadow: rem-calc(1) rem-calc(1) rem-calc(7) rgba($black, 0.2);
+	div[class^="card-"]{
+		padding: $card-padding;
+		&:first-child{
+			border-top-left-radius: $card-border-radius;
+			border-top-right-radius: $card-border-radius;
+		}
+		&:last-child{
+			border-bottom-left-radius: $card-border-radius;
+			border-bottom-right-radius: $card-border-radius;
+		}
+	}
+	.card-header{
+		border-radius: $card-border-radius $card-border-radius 0 0;
+	}
+	.card-footer{
+		border-radius: 0 0 $card-border-radius $card-border-radius;
+	}
+}
+
+@mixin card-style($header-bg-color: $card-header-bg-color) {
+	@if lightness($header-bg-color) > 60 {
+		$header-fg-color: $body-font-color;
+	} @else {
+		$header-fg-color: $white;
+	}
+	.card-header,
+	.card-footer{
+		background-color: $header-bg-color;
+		color: $header-fg-color;
+	}
+	.card-content{
+		border: 1px solid $header-bg-color;
+	}
+}
+
+.card{
+	@include card-base;
+	@include card-style;
+	&.primary{
+		@include card-style($primary-color);
+	}
+	&.secondary{
+		@include card-style($secondary-color);
+	}
+	&.success{
+		@include card-style($success-color);
+	}
+	&.warning{
+		@include card-style($warning-color);
+	}
+	&.error{
+		@include card-style($error-color);
+	}
+	&.info{
+		@include card-style($info-color);
+	}
+}
