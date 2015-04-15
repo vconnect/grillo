@@ -44,4 +44,7 @@ $label-padding-width: rem-calc(5) !default;
 	&.error{
 		@include label-style($error-color);
 	}
+	&.dark{
+		@include label-style($dark-gray-color);
+	}
 }

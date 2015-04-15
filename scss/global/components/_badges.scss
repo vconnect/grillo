@@ -1,0 +1,53 @@
+$badge-min-width: rem-calc(10) !default;
+$badge-padding-height: rem-calc(3) !default;
+$badge-padding-width: rem-calc(7) !default;
+$badge-font-size: rem-calc(12) !default;
+$badge-font-darken-factor: 25% !default;
+$badge-fg-color: $white !default;
+$badge-bg-color: $primary-color !default;
+$badge-border-radius: rem-calc(10) !default;
+
+@mixin badge-base() {
+	display: inline-block;
+	min-width: $badge-min-width;
+	padding: $badge-padding-height $badge-padding-width;
+	font-size: $badge-font-size;
+	font-weight: bold;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: $badge-border-radius;
+	&:empty{
+		display: none;
+	}
+}
+
+@mixin badge-style($bg-color: $badge-bg-color) {
+	background-color: $bg-color;
+
+	@if lightness($bg-color) > 60 {
+		color: darken($bg-color, $badge-font-darken-factor);
+	} @else {
+		color: $badge-fg-color;
+	}
+}
+.badge{
+	@include badge-base;
+	@include badge-style;
+	&.success{
+		@include badge-style($success-color);
+	}
+	&.info{
+		@include badge-style($info-color);
+	}
+	&.warning{
+		@include badge-style($warning-color);
+	}
+	&.error{
+		@include badge-style($error-color);
+	}
+	&.dark{
+		@include badge-style($dark-gray-color);
+	}
+}
