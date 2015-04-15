@@ -9,7 +9,8 @@ module.exports = {
 
   grillo: {
       src : [
-      	'css/grillo.css',
+      	'css/*.css',
+      	'docs/*.html',
       	'js/global/**/*.js',
       	'spec/**/*.js'
       ]

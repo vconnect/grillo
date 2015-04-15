@@ -1,0 +1,47 @@
+$label-bg-color: $primary-color !default;
+$label-fg-color: $white !default;
+$label-font-size-percent: 70% !default;
+$label-font-darken-factor: 25% !default;
+
+$label-border-radius: rem-calc(3) !default;
+$label-padding-height: rem-calc(2) !default;
+$label-padding-width: rem-calc(5) !default;
+
+@mixin label-base() {
+	display: inline;
+	line-height: 1;
+	font-size: $label-font-size-percent;
+	font-weight: bold;
+	border-radius: $label-border-radius;
+	padding: $label-padding-height $label-padding-width;
+	vertical-align: baseline;
+	white-space: nowrap;
+	text-align: center;
+}
+
+@mixin label-style($bg-color: $label-bg-color) {
+	background: $bg-color;
+
+	@if lightness($bg-color) > 50 {
+		color: darken($bg-color, $label-font-darken-factor);
+	} @else {
+		color: $label-fg-color;
+	}
+}
+
+.label{
+	@include label-base;
+	@include label-style;
+	&.success{
+		@include label-style($success-color);
+	}
+	&.info{
+		@include label-style($info-color);
+	}
+	&.warning{
+		@include label-style($warning-color);
+	}
+	&.error{
+		@include label-style($error-color);
+	}
+}
