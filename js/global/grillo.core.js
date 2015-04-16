@@ -466,6 +466,8 @@ Usage:
 
 grillo.init(); => grillo object
 
+grillo.init('jumbotron'); => only initialize jumbotron component
+
 grillo.init({
 	productlist:{
 		majorClass: 'major'

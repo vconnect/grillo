@@ -11,7 +11,8 @@ module.exports = {
       src : [
       	'css/*.css',
       	'docs/*.html',
-      	'js/global/**/*.js',
+      	'js/*.js',
+      	'js/min/*.js',
       	'spec/**/*.js'
       ]
   },

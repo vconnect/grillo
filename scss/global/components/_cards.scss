@@ -4,7 +4,7 @@ $card-border-radius: rem-calc(3) !default;
 $card-header-bg-color: $dark-white-color !default;
 
 @mixin card-base() {
-	margin: $card-margin;
+	margin: $card-margin 0;
 	border-radius: $card-border-radius;
 	box-shadow: rem-calc(1) rem-calc(1) rem-calc(7) rgba($black, 0.2);
 	div[class^="card-"]{

@@ -1,0 +1,20 @@
+.jumbotron{
+	min-height: rem-calc(300);
+	padding: rem-calc(50);
+	margin-bottom: rem-calc(20);
+	background-color: $dark-white-color;
+	background-position: center 0;
+	&.image-bg{
+		color: $white-color;
+		text-shadow: 0 0 35px rgba(0,0,0,.9),0 -1px 1px rgba(0,0,0,.6);
+		h1,
+		h2,
+		h3{
+			color: $white-color;
+		}
+	}
+	&.mega{
+		height: 100vh;
+		padding: rem-calc(75);
+	}
+}

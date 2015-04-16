@@ -9,6 +9,7 @@ $button-darken-factor: 5% !default;
 	border-radius: $button-border-radius;
 	line-height: 1;
 	display: inline-block;
+	text-shadow: none;
 	transition: all 0.3s ease;
 }
 

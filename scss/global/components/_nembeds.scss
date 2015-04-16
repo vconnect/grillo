@@ -1,0 +1,43 @@
+$embed-padding-bottom: 56.25% !default;
+$embed-margin-bottom: rem-calc(20) !default;
+
+@mixin embed-container {
+	position: relative;
+	// padding-top: $embed-padding-top;
+	// padding-bottom: $embed-padding-bottom;
+	// height: 0;
+	margin-bottom: $embed-margin-bottom;
+	overflow: hidden;
+
+	// &.widescreen { padding-bottom: $embed-widescreen-padding-bottom; }
+	// &.vimeo { padding-top: 0; }
+
+	iframe,
+	object,
+	embed,
+	video,
+	.embed-item{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+@mixin embed-size($ratio: 1.33) {
+	padding-bottom: 100% / $ratio;
+}
+.embed-container{
+	@include embed-container;
+	@include embed-size;
+	&.ratio-1by1{
+		@include embed-size(1);
+	}
+	&.ratio-4by3{
+		@include embed-size(4/3);
+	}
+	&.ratio-16by9{
+		@include embed-size(16/9);
+	}
+}
