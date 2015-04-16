@@ -1,0 +1,69 @@
+$table-cell-padding: rem-calc(7) !default;
+
+$table-border-color: $muted-color;
+
+$table-row-hover-color: $off-white-color !default;
+$table-row-stripe-bg-color: $off-white-color !default;
+
+@mixin table-base() {
+	border-spacing: 0;
+	border-collapse: collapse;
+	width: 100%;
+	max-width: 100%;
+	background-color: transparent;
+	margin-bottom: rem-calc(20);
+	th{
+		border-bottom: 2px solid $table-border-color;
+		text-align: left;
+		padding: $table-cell-padding;
+	}
+	td{
+		border-bottom: 1px solid $table-border-color;
+		padding: $table-cell-padding;
+	}
+}
+
+@mixin table-element-style($accent-color: $muted-color) {
+	background-color: lighten($accent-color, 30%);
+}
+
+.table{
+	@include table-base;
+	&.striped{
+		tbody{
+			tr:nth-of-type(odd){
+				background-color: $table-row-stripe-bg-color;
+			}
+		}
+	}
+	&.hover{
+		tbody{
+			tr:hover{
+				background-color: $table-row-hover-color;
+			}
+		}
+	}
+	&.bordered{
+		td,
+		th{
+			border: 1px solid $table-border-color;
+		}
+	}
+
+	tr,
+	td,
+	th{
+		&.success{
+			@include table-element-style($success-color);
+		}
+		&.error{
+			@include table-element-style($error-color);
+		}
+		&.warning{
+			@include table-element-style($warning-color);
+		}
+		&.info{
+			@include table-element-style($info-color);
+		}
+	}
+}
