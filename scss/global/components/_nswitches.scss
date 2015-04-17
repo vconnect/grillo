@@ -1,0 +1,81 @@
+$switch-width: rem-calc(100) !default;
+$switch-height: rem-calc(50) !default;
+$switch-padding: rem-calc(5) !default;
+$switch-bg-color: $muted-color !default;
+$switch-active-bg-color: $primary-color !default;
+
+$switch-handle-width: ($switch-width / 2) - ($switch-padding * 2) !default;
+$switch-handle-height: $switch-height - ($switch-padding * 2) !default;
+$switch-handle-bg-color: $white-color !default;
+$switch-active-handle-bg-color: $white-color !default;
+
+@mixin switch-base() {
+	position: relative;
+	input[type="checkbox"],
+	input[type="radio"]{
+		position: absolute;
+		top: 0;
+		left: 0;
+		visibility: hidden;
+		&:checked + label{
+			// background-color: $switch-active-bg-color;
+			&:after{
+				left: $switch-handle-width + ($switch-padding * 2);
+				// background-color: $switch-active-handle-bg-color;
+			}
+		}
+	}
+	label{
+		display: block;
+		width: $switch-width;
+		height: $switch-height;
+		// background-color: $switch-bg-color;
+		margin-bottom: rem-calc(10);
+		padding: $switch-padding;
+		transition: all 0.3s ease;
+		&:after{
+			content: '';
+			position: relative;
+			left: 0;
+			display: block;
+			width: rem-calc(40);
+			height: rem-calc(40);
+			// background-color: $switch-handle-bg-color;
+			transition: all 0.3s ease;
+		}
+	}
+}
+
+@mixin switch-style($bg-color: $switch-bg-color, $handle-bg-color: $switch-handle-bg-color, $active-bg-color: $switch-active-bg-color, $active-handle-bg-color: $switch-active-handle-bg-color) {
+	input[type="checkbox"],
+	input[type="radio"]{
+		&:checked + label{
+			background-color: $active-bg-color;
+			&:after{
+				background-color: $active-handle-bg-color;
+			}
+		}
+	}
+	label{
+		background-color: $bg-color;
+		&:after{
+			background-color: $handle-bg-color;
+		}
+	}
+}
+
+.switch{
+	@include switch-base;
+	@include switch-style;
+	&.round{
+		label{
+			border-radius: $switch-height;
+			&:after{
+				border-radius: $switch-handle-height;
+			}
+		}
+	}
+	&.secondary{
+		@include switch-style($active-bg-color: $secondary-color);
+	}
+}
