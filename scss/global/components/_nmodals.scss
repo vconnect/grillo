@@ -1,0 +1,85 @@
+$modal-content-padding: rem-calc(10);
+$modal-border-radius: rem-calc(3);
+
+$modal-close-size: rem-calc(30);
+$modal-close-top: $modal-content-padding - $modal-border-radius;
+$modal-close-right: $modal-content-padding - $modal-border-radius;
+$modal-close-color: $muted-color;
+$modal-close-hover-color: darken($muted-color, 15%);
+
+.modal{
+	display: none;
+	background-color: white;
+	padding: $modal-content-padding;
+	border-radius: $modal-border-radius;
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+.modal-container{
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, 0); // translate(-50%, -50%);
+	z-index: 9995;
+	transition: 1ms all ease;
+	&.fade{
+		opacity: 0;
+		transition: .5s all ease;
+		&.open{
+			opacity: 1;
+
+			transition: .5s all .5s ease;
+		}
+	}
+	&.open{}
+	&.open-anchor{
+		top: rem-calc(20);
+		transform: translate(-50%, 0);
+		margin-bottom: rem-calc(20);
+	}
+	.modal{
+		display: block;
+	}
+	.modal-close{
+		position: absolute;
+		top: $modal-close-top;
+		right: $modal-close-right;
+		display: block;
+		line-height: $modal-close-size;
+		width: $modal-close-size;
+		height: $modal-close-size;
+		font-size: $modal-close-size / 1.5;
+		vertical-align: middle;
+		text-align: center;
+		border-radius: $modal-border-radius;
+		background-color: $white;
+		color: $modal-close-color;
+		transition: .3s all ease;
+		&:hover{
+			color: $modal-close-hover-color;
+		}
+	}
+}
+.modal-overlay{
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 9990;
+	background: rgba(0, 0, 0, 0.4);
+	transition: 1ms all ease;
+	&.fade{
+		opacity: 0;
+		transition: .5s all .5s ease;
+		&.open{
+			opacity: 1;
+			transition: .5s all ease;
+		}
+	}
+	&.open{}
+}
+.modal-blur{
+	-webkit-filter: blur(2px);
+	filter: blur(2px);
+	transition: .3s all ease;
+}

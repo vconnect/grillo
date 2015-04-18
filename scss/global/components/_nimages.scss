@@ -1,4 +1,5 @@
 $image-border-radius: rem-calc(3) !default;
+$image-circle-radius: rem-calc(1000) !default;
 $image-thumbnail-border: rem-calc(5) solid $white-color !default;
 $image-thumnail-outline: rem-calc(1) solid $muted-color;
 
@@ -7,7 +8,7 @@ img{
 		border-radius: $image-border-radius;
 	}
 	&.circle{
-		border-radius: 50%;
+		border-radius: $image-circle-radius;
 	}
 	&.thumbnail{
 		border: $image-thumbnail-border;

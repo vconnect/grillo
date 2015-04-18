@@ -69,6 +69,14 @@
 		return a;
 	};
 
+	function transitionEndSelect() {
+		var el = document.createElement("div");
+		if (el.style.WebkitTransition) return "webkitTransitionEnd";
+		if (el.style.OTransition) return "oTransitionEnd";
+		return 'transitionend';
+	}
+
+	// MatchMedia Polyfill
 	window.matchMedia = window.matchMedia || function() {
 		"use strict";
 		console.log('a');
@@ -180,6 +188,7 @@
 			for(var comp in _comps){
 				init_comp(comp, this);
 			}
+			this.transitionEnd = transitionEndSelect();
 		},
 		namespace: _namespace,
 		comps: _comps,
