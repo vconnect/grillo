@@ -1,0 +1,48 @@
+.nav-tabs{
+	@include clearfix;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	margin-top: rem-calc(5);
+	background-color: $off-white-color;
+	font-size: rem-calc(14);
+	border-bottom: 1px solid $muted-color;
+	li{
+		float: left;
+		background-color: $dark-white-color;
+		border: 1px solid $muted-color;
+		border-radius: rem-calc(3 3 0 0);
+		border-bottom: none;
+		border-right: none;
+		&:last-child{
+			border-right: 1px solid $muted-color;
+		}
+		&.active{
+			background-color: $white;
+			border-top: 2px solid $primary-color;
+
+			//Realign for the active styles
+			margin-top: rem-calc(-1);
+			padding-bottom: rem-calc(1);
+			margin-bottom: rem-calc(-1);
+
+			a{
+				color: $primary-color;
+			}
+		}
+		a{
+			display: inline-block;
+			padding: rem-calc(10);
+			color: $black;
+		}
+	}
+}
+
+.tabs-content{
+	& > .content{
+		display: none;
+		&.active{
+			display: block;
+		}
+	}
+}
