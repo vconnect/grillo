@@ -1,0 +1,32 @@
+.accordion-collapse{
+	display: none;
+	padding: rem-calc(10);
+}
+.accordion-heading{
+	background-color: $off-white-color;
+	transition: .3s background-color ease;
+	&:hover{
+		background-color: $dark-white-color;
+	}
+	a{
+		display: block;
+		color: $black-color;
+		padding: rem-calc(10);
+	}
+}
+.accordion-item{
+	border: 1px solid $muted-color;
+	border-bottom: none;
+	&:last-child{
+		border-bottom: 1px solid $muted-color;
+	}
+	&.active{
+		.accordion-heading{
+			border-bottom: 1px solid $muted-color;
+			background-color: $dark-white-color;
+		}
+		.accordion-collapse{
+			display: block;
+		}
+	}
+}
