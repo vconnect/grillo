@@ -39,10 +39,10 @@
 						_.close();
 					}
 				});
-			}
+			};
 
 			return this; //chaining
-		}
+		};
 
 		Modal.prototype = scope.extend(Modal.prototype, {
 			open: function(){
@@ -52,7 +52,7 @@
 
 				//force the browser to recalculate and recognize the elements.
 				//This is so that CSS animation has a start point
-				window.getComputedStyle(this.modalWrapper[0]).height;
+				window.getComputedStyle(this.modalWrapper[0]).height; // jshint ignore:line
 
 				if(this.modalWrapper.height()>$(window).height()){
 					this.modalWrapper.addClass(opts.modalOpenAnchorClass);

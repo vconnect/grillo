@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Grillo</title>
+	<link rel="stylesheet" href="../css/docs.css">
+</head>
+<body>
+
+<div class="wrapper">
+
+<div class="forms-content">
+	<form action="./post">
+		<div class="row">
+			<div class="columns medium-12">
+				<div class="form-group">
+					<label>Name <small>Required</small></label>
+					<input type="text" placeholder="Name">
+				</div>
+				<div class="row">
+					<div class="columns medium-6">
+						<div class="form-group error">
+							<label>First Name</label>
+							<input type="text" placeholder="First Name">
+							<small class="error">Enter a proper name</small>
+						</div>
+					</div>
+					<div class="columns medium-6">
+						<div class="form-group success">
+							<label>Surname</label>
+							<input type="text" placeholder="Surname">
+							<small class="error">Nigga! That is not your surname!</small>
+						</div>
+					</div>
+				</div>
+				<div class="form-group warning">
+					<select name="" id="">
+						<option value="">Select grocery item</option>
+						<option value="">Shoe</option>
+						<option value="">Toothbrush</option>
+						<option value="">Wristwatch</option>
+						<option value="">Converse</option>
+					</select>
+				</div>
+				<div class="row">
+					<div class="columns medium-6">
+						<div class="form-group error">
+							<div class="input-group">
+								<div class="addon">http://</div>
+								<input type="text" placeholder="Website">
+								<div class="addon">.com</div>
+							</div>
+						</div>
+					</div>
+					<div class="columns medium-6">
+						<div class="form-group">
+							<div class="input-group">
+								<input type="email" placeholder="Email address">
+								<a href="#" class="btn addon">Go</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group error">
+					<textarea name="" id="" cols="30" rows="10" placeholder="Leave your remarks here"></textarea>
+					<small class="error">And your remarks?</small>
+				</div>
+				<div class="form-group">
+					<a href="#" class="btn">Login</a>
+					<label class="inline"><input id="dd" type="checkbox"> Remember me</label>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<form action="./post" data-vc-form="ajax">
+		<div class="row">
+			<div class="columns medium-12">
+				<div class="form-group">
+					<label>Any Number <small>Required</small></label>
+					<input type="text" name="num" placeholder="Number" pattern="^\d+$" required>
+				</div>
+				<div class="row">
+					<div class="columns medium-6">
+						<div class="form-group">
+							<label>First Name</label>
+							<input type="text" name="fname" placeholder="First Name" data-vc-pattern="alpha" required>
+							<small class="error">Enter a proper name</small>
+						</div>
+					</div>
+					<div class="columns medium-6">
+						<div class="form-group">
+							<label>Surname</label>
+							<input type="text" name="surname" placeholder="Surname" data-vc-validation="delay">
+							<small class="error">Nigga! That is not your surname!</small>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<select name="grocery" id="" required>
+						<option value="">Select grocery item</option>
+						<option value="a">Shoe</option>
+						<option value="b">Toothbrush</option>
+						<option value="c">Wristwatch</option>
+						<option value="d">Converse</option>
+					</select>
+				</div>
+				<div class="row">
+					<div class="columns medium-6">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="addon">http://</div>
+								<input type="text" name="website" placeholder="Website">
+								<div class="addon">.com</div>
+							</div>
+						</div>
+					</div>
+					<div class="columns medium-6">
+						<div class="form-group">
+							<div class="input-group">
+								<input type="email" name="email" placeholder="Email address">
+								<a href="#" class="btn addon">Go</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<textarea name="remarks" id="" cols="30" rows="10" placeholder="Leave your remarks here"></textarea>
+					<small class="error">And your remarks?</small>
+				</div>
+				<div class="form-group">
+					<button class="btn" type="submit">Login</button>
+					<button class="btn" type="reset">Reset</button>
+					<label class="inline"><input id="dd" type="checkbox"> Remember me</label>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script>
+	window.addEventListener('load', function(){
+		console.log('window is loaded');
+		$('[data-vc-form]').on('valid.forms.vc', function(){
+			var form = this;
+			console.log('###:VALID:###');
+			setTimeout(function(){
+				grillo.invalidateForm(form, {website: "That is not my website", email: "Is that an email or a liame?"});
+			}, 500);
+		});
+	});
+
+</script>
+
+</div>
+	<script src="/js/vendor/jquery-1.10.2.min.js"></script>
+	<script src="/js/min/grillo.min.js"></script>
+	<script>
+		grillo.init();
+	</script>
+</body>
+</html>
+

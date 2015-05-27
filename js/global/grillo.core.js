@@ -69,6 +69,61 @@
 		return a;
 	};
 
+	// THROTTLE AND DEBOUNCE
+	// ---------------------
+	var throttle = function(func, delay) {
+  // Description:
+  //    Executes a function a max of once every n milliseconds
+  //
+  // Arguments:
+  //    Func (Function): Function to be throttled.
+  //
+  //    Delay (Integer): Function execution threshold in milliseconds.
+  //
+  // Returns:
+  //    Lazy_function (Function): Function with throttling applied.
+    var timer = null;
+
+    return function () {
+      var context = this, args = arguments;
+
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        func.apply(context, args);
+      }, delay);
+    };
+  };
+
+  var debounce = function(func, delay, immediate) {
+  // Description:
+  //    Executes a function when it stops being invoked for n seconds
+  //    Modified version of _.debounce() http://underscorejs.org
+  //
+  // Arguments:
+  //    Func (Function): Function to be debounced.
+  //
+  //    Delay (Integer): Function execution threshold in milliseconds.
+  //
+  //    Immediate (Bool): Whether the function should be called at the beginning
+  //    of the delay instead of the end. Default is false.
+  //
+  // Returns:
+  //    Lazy_function (Function): Function with debouncing applied.
+    var timeout, result;
+    return function() {
+      var context = this, args = arguments;
+      var later = function() {
+        timeout = null;
+        if (!immediate) result = func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, delay);
+      if (callNow) result = func.apply(context, args);
+      return result;
+    };
+  };
+
 	function transitionEndSelect() {
 		var el = document.createElement("div");
 		if (el.style.WebkitTransition) return "webkitTransitionEnd";
@@ -196,6 +251,8 @@
 		config: _config,
 		scriptStore: _scriptStore,
 		extend: extend,
+		throttle: throttle,
+		debounce: debounce,
 
 		/**
 		 * addComponent Used to add a component to the system
@@ -494,5 +551,8 @@ grillo API:
 	grillo.getAttr('role') => 'data-vc-role'
 
 	matchMedia(grillo.mq.small) => true
+
+	Functions of components are exposed to the component object in the grillo object
+	grillo.tabs.show()
 
 */

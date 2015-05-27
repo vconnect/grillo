@@ -36,7 +36,7 @@
 			$(tabTrigger).closest('.' + opts.tabTriggersListClass).children('li').removeClass(opts.activeTabClass);
 			// 4. Add the active class to the tab trigger
 			$(tabTrigger).closest('.' + opts.tabTriggersListClass + ' li').addClass(opts.activeTabClass);
-		}
+		};
 
 		return {
 			init:function(){

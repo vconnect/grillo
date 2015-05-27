@@ -1,4 +1,4 @@
-$button-font-size: rem-calc(12) !default;
+$button-font-size: rem-calc(14) !default;
 $button-padding-width: rem-calc(20) !default;
 $button-padding-height: rem-calc(9) !default;
 $button-border-radius: rem-calc(3) !default;
@@ -11,6 +11,7 @@ $button-darken-factor: 5% !default;
 	display: inline-block;
 	text-shadow: none;
 	transition: all 0.3s ease;
+	text-align: center;
 }
 
 @mixin btn-style($bg:$primary-color, $fg:$white-color, $border-color:currentColor, $border-width: $button-border-width, $border-style: solid) {
@@ -71,6 +72,9 @@ $button-darken-factor: 5% !default;
 	}
 	&.x-large{
 		@include btn-size(1.5);
+	}
+	&.block{
+		width: 100%;
 	}
 }
 

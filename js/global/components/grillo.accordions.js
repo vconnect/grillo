@@ -27,7 +27,7 @@
 
 			// 2. Add active class to current accordion panel
 			opts.accordions.find(panelTarget).closest('.' + opts.panelClass).addClass(opts.activePanelClass);
-		}
+		};
 
 		return {
 			init:function(){
